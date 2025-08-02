@@ -1,0 +1,4 @@
+2025-08-02 16:04:56.521 -03:00 [INF] Starting up
+2025-08-02 16:04:56.708 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-02 16:04:56.710 -03:00 [INF] connectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true
+2025-08-02 16:04:56.812 -03:00 [INF] User profile is available. Using 'C:\Users\camil\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
