@@ -28,15 +28,8 @@ namespace turno_smart.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-                var config = new ConfigurationBuilder()
-                    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
-                    .AddJsonFile("appsettings.json")
-                    .Build();
-
-                optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
-            }
+            // No configurar nada aquí - la configuración se hace en Program.cs
+            // Esto evita conflictos entre SQL Server (dev) y PostgreSQL (prod)
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

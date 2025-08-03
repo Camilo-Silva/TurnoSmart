@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using turno_smart.Models;
 using turno_smart.ViewModels.AccountVM;
 using turno_smart.Interfaces;
@@ -56,63 +57,117 @@ namespace turno_smart.Controllers
         {
             if (ModelState.IsValid)
             {
-                int dni;
-                if (!int.TryParse(model.DNI, out dni))
+                try
                 {
-                    ModelState.AddModelError("DNI", "DNI ingresado invalido");
-                    return PartialView("_RegistrationModal", model);
-                }
-                if (!model.AceptoTerminos)
-                {
-                    ModelState.AddModelError("AceptoTerminos", "Debes aceptar los terminos para registrarte.");
-                    return PartialView("_RegistrationModal", model);
-                }
-                Usuarios users = new Usuarios
-                {
-                    Email = model.Email,
-                    UserName = model.Email,
-                    DNI = dni,
-                };
-
-                var result = await _userManager.CreateAsync(users, model.Password);
-
-                if (result.Succeeded)
-                {
-                    await _userManager.AddToRoleAsync(users, "Paciente");
-                    Paciente paciente = _pacienteService.GetByDNI(users.DNI);
-                    if (paciente == null)
+                    _logger.LogInformation("Iniciando registro de paciente con email: {Email}", model.Email);
+                    
+                    int dni;
+                    if (!int.TryParse(model.DNI, out dni))
                     {
-                        paciente = new Paciente()
+                        _logger.LogWarning("DNI inválido ingresado: {DNI}", model.DNI);
+                        ModelState.AddModelError("DNI", "DNI ingresado invalido");
+                        return PartialView("_RegistrationModal", model);
+                    }
+                    if (!model.AceptoTerminos)
+                    {
+                        _logger.LogWarning("Usuario no aceptó términos y condiciones");
+                        ModelState.AddModelError("AceptoTerminos", "Debes aceptar los terminos para registrarte.");
+                        return PartialView("_RegistrationModal", model);
+                    }
+                    
+                    // Verificar si el email ya existe
+                    var existingUserByEmail = await _userManager.FindByEmailAsync(model.Email);
+                    if (existingUserByEmail != null)
+                    {
+                        _logger.LogWarning("Intento de registro con email ya existente: {Email}", model.Email);
+                        ModelState.AddModelError("Email", "Ya existe un usuario registrado con este email.");
+                        return PartialView("_RegistrationModal", model);
+                    }
+                    
+                    // Verificar si el DNI ya existe
+                    var existingUserByDNI = await _userManager.Users.FirstOrDefaultAsync(u => u.DNI == dni);
+                    if (existingUserByDNI != null)
+                    {
+                        _logger.LogWarning("Intento de registro con DNI ya existente: {DNI}", dni);
+                        ModelState.AddModelError("DNI", "Ya existe un usuario registrado con este DNI.");
+                        return PartialView("_RegistrationModal", model);
+                    }
+                    
+                    _logger.LogInformation("Creando usuario de Identity para DNI: {DNI}", dni);
+                    Usuarios users = new Usuarios
+                    {
+                        Email = model.Email,
+                        UserName = model.Email,
+                        DNI = dni,
+                    };
+
+                    var result = await _userManager.CreateAsync(users, model.Password);
+
+                    if (result.Succeeded)
+                    {
+                        _logger.LogInformation("Usuario de Identity creado exitosamente, agregando rol Paciente");
+                        await _userManager.AddToRoleAsync(users, "Paciente");
+                        
+                        _logger.LogInformation("Verificando si paciente ya existe con DNI: {DNI}", users.DNI);
+                        Paciente paciente = _pacienteService.GetByDNI(users.DNI);
+                        if (paciente == null)
                         {
-                            Nombre = model.Nombre,
-                            Apellido = model.Apellido,
-                            DNI = dni,
-                            FechaNacimiento = model.FechaNacimiento,
-                            Email = model.Email,
-                            FechaAlta = DateTime.Now,
-                            Usuario = users,
-                            Ciudad = "",
-                            Provincia = "",
-                            Domicilio = "",
-                            Cobertura = 0,
-                            Telefono = 0,
-                            Estado = 0,
-                        };
+                            _logger.LogInformation("Paciente no existe, creando nuevo registro de paciente");
+                            paciente = new Paciente()
+                            {
+                                Nombre = model.Nombre,
+                                Apellido = model.Apellido,
+                                DNI = dni,
+                                FechaNacimiento = model.FechaNacimiento,
+                                Email = model.Email,
+                                FechaAlta = DateTime.Now,
+                                Usuario = users,
+                                Ciudad = "",
+                                Provincia = "",
+                                Domicilio = "",
+                                Cobertura = 0,
+                                Telefono = 0,
+                                Estado = 1, // 1 = Activo/Habilitado, 0 = Inactivo/Deshabilitado
+                            };
+                        }
+                        else
+                        {
+                            _logger.LogInformation("Paciente ya existe con DNI: {DNI}", users.DNI);
+                        }
+                        
+                        _logger.LogInformation("Guardando paciente en base de datos");
+                        _pacienteService.Create(paciente);
+                        
+                        _logger.LogInformation("Registro de paciente completado exitosamente para email: {Email}", model.Email);
+                        return PartialView("_RegistrationSuccess", model);
                     }
-                    _pacienteService.Create(paciente);
-
-                    return PartialView("_RegistrationSuccess", model);
-                }
-                else
-                {
-                    foreach (var error in result.Errors)
+                    else
                     {
-                        ModelState.AddModelError("", error.Description);
-                    }
+                        _logger.LogWarning("Error al crear usuario de Identity. Errores: {Errors}", 
+                            string.Join(", ", result.Errors.Select(e => e.Description)));
+                        
+                        foreach (var error in result.Errors)
+                        {
+                            ModelState.AddModelError("", error.Description);
+                        }
 
+                        return PartialView("_RegistrationModal", model);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log del error para debugging
+                    _logger.LogError(ex, "Error al procesar el registro de paciente: {Message}", ex.Message);
+                    
+                    // Mensaje de error genérico para el usuario
+                    ModelState.AddModelError("", "Error al procesar la solicitud: " + ex.Message);
                     return PartialView("_RegistrationModal", model);
                 }
             }
+            
+            _logger.LogWarning("ModelState no es válido para registro de paciente. Errores: {Errors}", 
+                string.Join(", ", ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage)));
+            
             return PartialView("_RegistrationModal", model);
         }
 
