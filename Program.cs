@@ -141,36 +141,87 @@ namespace turno_smart
                         
                         if (canConnect)
                         {
-                            // Verificar qué migraciones están aplicadas
-                            var appliedMigrations = await context.Database.GetAppliedMigrationsAsync();
-                            Log.Information("Migraciones aplicadas: {Count}", appliedMigrations.Count());
-                            foreach(var migration in appliedMigrations)
+                            // Verificar si las tablas principales ya existen
+                            bool tablesExist = false;
+                            try
                             {
-                                Log.Information("- {Migration}", migration);
+                                await context.Users.AnyAsync();
+                                tablesExist = true;
+                                Log.Information("Las tablas principales ya existen en la base de datos.");
                             }
-                            
-                            // Verificar migraciones pendientes
-                            var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
-                            Log.Information("Migraciones pendientes: {Count}", pendingMigrations.Count());
-                            foreach(var migration in pendingMigrations)
+                            catch
                             {
-                                Log.Information("- Pendiente: {Migration}", migration);
+                                Log.Information("Las tablas principales no existen, necesitan crearse.");
                             }
-                            
-                            if (pendingMigrations.Any())
+
+                            if (tablesExist)
                             {
-                                Log.Information("Aplicando migraciones pendientes...");
-                                using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
-                                await context.Database.MigrateAsync(cts.Token);
-                                Log.Information("Migraciones aplicadas exitosamente.");
+                                // Si las tablas existen, verificar que el historial de migraciones esté sincronizado
+                                var appliedMigrations = await context.Database.GetAppliedMigrationsAsync();
+                                Log.Information("Migraciones aplicadas: {Count}", appliedMigrations.Count());
                                 
-                                // Verificar que se aplicaron correctamente
-                                var newAppliedMigrations = await context.Database.GetAppliedMigrationsAsync();
-                                Log.Information("Total migraciones después de aplicar: {Count}", newAppliedMigrations.Count());
+                                if (!appliedMigrations.Any())
+                                {
+                                    // Las tablas existen pero no hay historial de migraciones
+                                    // Marcar la migración principal como aplicada sin ejecutarla
+                                    Log.Information("Sincronizando historial de migraciones con tablas existentes...");
+                                    
+                                    // Usar la migración que corresponde al proveedor actual
+                                    string migrationToMark;
+                                    if (connectionString.Contains("postgres") || connectionString.Contains("Host="))
+                                    {
+                                        migrationToMark = "20250803063000_InitialPostgreSQLCompatible";
+                                    }
+                                    else
+                                    {
+                                        // Para SQL Server, crear una entrada ficticia o usar la misma
+                                        migrationToMark = "20250803063000_InitialPostgreSQLCompatible";
+                                    }
+                                    
+                                    // Insertar en __EFMigrationsHistory sin ejecutar la migración
+                                    await context.Database.ExecuteSqlRawAsync(
+                                        "INSERT INTO \"__EFMigrationsHistory\" (\"MigrationId\", \"ProductVersion\") VALUES ({0}, {1})",
+                                        migrationToMark, "8.0.8");
+                                    Log.Information("Marcada como aplicada: {Migration}", migrationToMark);
+                                    Log.Information("Historial de migraciones sincronizado.");
+                                }
+                                else
+                                {
+                                    // Verificar migraciones pendientes normalmente
+                                    var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+                                    Log.Information("Migraciones pendientes: {Count}", pendingMigrations.Count());
+                                    
+                                    if (pendingMigrations.Any())
+                                    {
+                                        Log.Information("Aplicando migraciones pendientes...");
+                                        using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+                                        await context.Database.MigrateAsync(cts.Token);
+                                        Log.Information("Migraciones aplicadas exitosamente.");
+                                    }
+                                }
                             }
                             else
                             {
-                                Log.Information("No hay migraciones pendientes.");
+                                // Las tablas no existen, crear base de datos según el proveedor
+                                if (connectionString.Contains("postgres") || connectionString.Contains("Host="))
+                                {
+                                    // PostgreSQL - usar migraciones
+                                    Log.Information("Aplicando migraciones PostgreSQL para crear la base de datos...");
+                                    await context.Database.MigrateAsync();
+                                    Log.Information("Base de datos PostgreSQL creada exitosamente con migraciones.");
+                                }
+                                else
+                                {
+                                    // SQL Server - usar EnsureCreated para desarrollo
+                                    Log.Information("Creando base de datos SQL Server para desarrollo local...");
+                                    await context.Database.EnsureCreatedAsync();
+                                    Log.Information("Base de datos SQL Server creada exitosamente.");
+                                    
+                                    // Marcar como migrada para consistencia
+                                    await context.Database.ExecuteSqlRawAsync(
+                                        "INSERT INTO __EFMigrationsHistory (MigrationId, ProductVersion) VALUES ({0}, {1})",
+                                        "20250803063000_InitialPostgreSQLCompatible", "8.0.8");
+                                }
                             }
                         }
                         else
