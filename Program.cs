@@ -132,23 +132,31 @@ namespace turno_smart
                     {
                         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                         
-                        // Aplicar migraciones tanto en desarrollo como en producción
-                        Log.Information("Verificando y aplicando migraciones de base de datos...");
-                        
-                        // Verificar si la base de datos existe, si no, crearla
-                        if (!await context.Database.CanConnectAsync())
+                        // Configuración diferenciada por tipo de base de datos
+                        if (connectionString.Contains("postgres") || builder.Environment.IsProduction())
                         {
-                            Log.Information("Base de datos no existe, creándola...");
-                            await context.Database.EnsureCreatedAsync();
+                            // Para PostgreSQL: usar EnsureCreated (compatible con todos los tipos)
+                            Log.Information("Configurando PostgreSQL - usando EnsureCreated...");
+                            
+                            // Solo crear si no existe
+                            if (!await context.Database.CanConnectAsync())
+                            {
+                                Log.Information("Base de datos PostgreSQL no existe, creándola...");
+                                await context.Database.EnsureCreatedAsync();
+                                Log.Information("Base de datos PostgreSQL creada exitosamente.");
+                            }
+                            else
+                            {
+                                Log.Information("Base de datos PostgreSQL ya existe y está conectada.");
+                            }
                         }
                         else
                         {
-                            // Si existe, aplicar migraciones pendientes
-                            Log.Information("Base de datos existe, aplicando migraciones pendientes...");
+                            // Para SQL Server: usar migraciones normalmente
+                            Log.Information("Configurando SQL Server - aplicando migraciones...");
                             await context.Database.MigrateAsync();
+                            Log.Information("Migraciones de SQL Server aplicadas exitosamente.");
                         }
-                        
-                        Log.Information("Configuración de base de datos completada exitosamente.");
                     }
                     catch (Exception ex)
                     {
