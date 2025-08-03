@@ -132,14 +132,25 @@ namespace turno_smart
                     {
                         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                         
-                        // Aplicar migraciones pendientes automáticamente
-                        Log.Information("Verificando y aplicando migraciones de base de datos...");
-                        await context.Database.MigrateAsync();
-                        Log.Information("Migraciones aplicadas exitosamente.");
+                        // Para PostgreSQL, crear la base de datos directamente sin migraciones
+                        if (builder.Environment.IsProduction())
+                        {
+                            Log.Information("Creando base de datos PostgreSQL directamente...");
+                            await context.Database.EnsureDeletedAsync(); // Eliminar si existe
+                            await context.Database.EnsureCreatedAsync(); // Crear nueva
+                            Log.Information("Base de datos PostgreSQL creada exitosamente.");
+                        }
+                        else
+                        {
+                            // Aplicar migraciones pendientes automáticamente en desarrollo
+                            Log.Information("Verificando y aplicando migraciones de base de datos...");
+                            await context.Database.MigrateAsync();
+                            Log.Information("Migraciones aplicadas exitosamente.");
+                        }
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, "Error al aplicar migraciones de base de datos");
+                        Log.Error(ex, "Error al configurar base de datos");
                         throw; // Re-lanzar para que la aplicación falle rápido
                     }
                 }
