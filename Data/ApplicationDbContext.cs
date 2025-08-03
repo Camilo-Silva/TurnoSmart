@@ -37,6 +37,10 @@ namespace turno_smart.Data
 
                 optionsBuilder.UseSqlServer(config.GetConnectionString("DefaultConnection"));
             }
+            
+            // Suprimir advertencia de cambios pendientes para Railway deployment
+            optionsBuilder.ConfigureWarnings(warnings => 
+                warnings.Ignore(Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.PendingModelChangesWarning));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

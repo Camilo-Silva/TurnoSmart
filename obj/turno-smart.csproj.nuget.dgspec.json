@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj": {}
+    "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj": {}
   },
   "projects": {
-    "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj": {
+    "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
+        "projectUniqueName": "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
         "projectName": "turno-smart",
-        "projectPath": "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
+        "projectPath": "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
         "packagesPath": "C:\\Users\\camil\\.nuget\\packages\\",
-        "outputPath": "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\obj\\",
+        "outputPath": "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

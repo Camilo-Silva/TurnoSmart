@@ -1,0 +1,38 @@
+2025-08-03 00:33:17.201 -03:00 [INF] Starting up
+2025-08-03 00:33:17.786 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 00:33:17.787 -03:00 [INF] Environment: Development
+2025-08-03 00:33:17.787 -03:00 [INF] DATABASE_URL variable: NULL
+2025-08-03 00:33:17.788 -03:00 [INF] Using local development configuration
+2025-08-03 00:33:17.789 -03:00 [INF] connectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true
+2025-08-03 00:33:17.789 -03:00 [INF] Environment: Development
+2025-08-03 00:33:17.790 -03:00 [INF] Database URL exists: False
+2025-08-03 00:33:17.790 -03:00 [INF] Configuring SQL Server database context
+2025-08-03 00:33:18.021 -03:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at System.Diagnostics.DiagnosticSource.Write[T](String name, T value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 126
+2025-08-03 00:33:42.303 -03:00 [INF] Starting up
+2025-08-03 00:33:42.380 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 00:33:42.382 -03:00 [INF] Environment: Development
+2025-08-03 00:33:42.383 -03:00 [INF] DATABASE_URL variable: NULL
+2025-08-03 00:33:42.384 -03:00 [INF] Using local development configuration
+2025-08-03 00:33:42.384 -03:00 [INF] connectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true
+2025-08-03 00:33:42.385 -03:00 [INF] Environment: Development
+2025-08-03 00:33:42.385 -03:00 [INF] Database URL exists: False
+2025-08-03 00:33:42.386 -03:00 [INF] Configuring SQL Server database context
+2025-08-03 00:33:42.444 -03:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at System.Diagnostics.DiagnosticSource.Write[T](String name, T value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 126

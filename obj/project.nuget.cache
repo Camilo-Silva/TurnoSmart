@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "UYG6rXsr5ig=",
+  "dgSpecHash": "sSFdb6OfRcE=",
   "success": true,
-  "projectFilePath": "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
+  "projectFilePath": "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\camil\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\camil\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

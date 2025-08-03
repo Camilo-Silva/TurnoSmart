@@ -304,3 +304,10 @@ D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\obj\Debug\net8.0\refint\turno-
 D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\obj\Debug\net8.0\turno-smart.pdb
 D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\obj\Debug\net8.0\turno-smart.genruntimeconfig.cache
 D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\obj\Debug\net8.0\ref\turno-smart.dll
+D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\bin\Debug\net8.0\appsettings.Production.json
+D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\bin\Debug\net8.0\Microsoft.Extensions.Caching.Abstractions.dll
+D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\bin\Debug\net8.0\Microsoft.Extensions.Configuration.Abstractions.dll
+D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\bin\Debug\net8.0\Microsoft.Extensions.Primitives.dll
+D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\bin\Debug\net8.0\Npgsql.dll
+D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\bin\Debug\net8.0\System.Diagnostics.DiagnosticSource.dll
