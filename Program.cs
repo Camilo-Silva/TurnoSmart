@@ -132,8 +132,8 @@ namespace turno_smart
                     {
                         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                         
-                        // Para PostgreSQL, crear la base de datos directamente sin migraciones
-                        if (builder.Environment.IsProduction())
+                        // Para PostgreSQL en producción, crear la base de datos directamente
+                        if (builder.Environment.IsProduction() && (!string.IsNullOrEmpty(databaseUrl) || connectionString.Contains("postgres")))
                         {
                             Log.Information("Creando base de datos PostgreSQL directamente...");
                             await context.Database.EnsureDeletedAsync(); // Eliminar si existe
@@ -142,7 +142,7 @@ namespace turno_smart
                         }
                         else
                         {
-                            // Aplicar migraciones pendientes automáticamente en desarrollo
+                            // Aplicar migraciones en desarrollo o SQL Server
                             Log.Information("Verificando y aplicando migraciones de base de datos...");
                             await context.Database.MigrateAsync();
                             Log.Information("Migraciones aplicadas exitosamente.");
