@@ -7194,3 +7194,363 @@ Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
    at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
    at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
    at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 126
+2025-08-03 02:35:38.714 -03:00 [INF] Starting up
+2025-08-03 02:35:38.803 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 02:35:38.805 -03:00 [INF] Environment: Development
+2025-08-03 02:35:38.805 -03:00 [INF] DATABASE_URL variable: NULL
+2025-08-03 02:35:38.806 -03:00 [INF] Using local development configuration
+2025-08-03 02:35:38.807 -03:00 [INF] connectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true
+2025-08-03 02:35:38.807 -03:00 [INF] Environment: Development
+2025-08-03 02:35:38.808 -03:00 [INF] Database URL exists: False
+2025-08-03 02:35:38.808 -03:00 [INF] Configuring SQL Server database context
+2025-08-03 02:35:39.568 -03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:35:39.604 -03:00 [INF] Executed DbCommand (26ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 02:35:39.607 -03:00 [INF] Iniciando configuración de base de datos...
+2025-08-03 02:35:39.608 -03:00 [INF] Connection String: Server=(localdb)\mssqllocaldb;Database=aspnet-turn...
+2025-08-03 02:35:39.626 -03:00 [INF] Executed DbCommand (9ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:35:39.631 -03:00 [INF] ¿Puede conectarse a la base de datos? true
+2025-08-03 02:35:39.636 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:35:39.647 -03:00 [INF] Executed DbCommand (6ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-08-03 02:35:39.659 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-08-03 02:35:39.667 -03:00 [INF] Migraciones aplicadas: 20
+2025-08-03 02:35:39.668 -03:00 [INF] - 00000000000000_CreateIdentitySchema
+2025-08-03 02:35:39.669 -03:00 [INF] - 20241107001556_InitialIdentityMigration
+2025-08-03 02:35:39.670 -03:00 [INF] - 20241109230358_AddPacientesMedicosEspecialidadesTurnosEntities
+2025-08-03 02:35:39.670 -03:00 [INF] - 20241113231218_AddHistorialMedicoEstudiosEntities
+2025-08-03 02:35:39.671 -03:00 [INF] - 20241115200944_Especialidades
+2025-08-03 02:35:39.671 -03:00 [INF] - 20241118130048_CorreccionEnRelacionesYColumnas
+2025-08-03 02:35:39.672 -03:00 [INF] - 20241118195121_AddDisponibilidadModel
+2025-08-03 02:35:39.672 -03:00 [INF] - 20241119212940_TurnoCreado
+2025-08-03 02:35:39.673 -03:00 [INF] - 20241119215348_TurnoTable
+2025-08-03 02:35:39.673 -03:00 [INF] - 20241121020756_CreacionDeMedico
+2025-08-03 02:35:39.674 -03:00 [INF] - 20241121142224_ModificacionDeTableTurnos
+2025-08-03 02:35:39.674 -03:00 [INF] - 20241121193300_FixRelations
+2025-08-03 02:35:39.675 -03:00 [INF] - 20241121205054_TestRelacionUsuarios
+2025-08-03 02:35:39.675 -03:00 [INF] - 20241122000657_AgregadoDeVistaTurnos
+2025-08-03 02:35:39.676 -03:00 [INF] - 20241127214734_AddIsAdminToUsuarios
+2025-08-03 02:35:39.676 -03:00 [INF] - 20241217003740_AddColumnsInHistorialMedicoEntity
+2025-08-03 02:35:39.677 -03:00 [INF] - 20241219030857_CreateCentroMedicoTable
+2025-08-03 02:35:39.677 -03:00 [INF] - 20241220150327_MatriculaMedicos
+2025-08-03 02:35:39.678 -03:00 [INF] - 20241220151940_AddRecepcionistaEntity
+2025-08-03 02:35:39.679 -03:00 [INF] - 20241220213249_HistorialClinico
+2025-08-03 02:35:39.691 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:35:39.693 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-08-03 02:35:39.694 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-08-03 02:35:39.696 -03:00 [INF] Migraciones pendientes: 2
+2025-08-03 02:35:39.697 -03:00 [INF] - Pendiente: 20250803052940_InitialMigration
+2025-08-03 02:35:39.697 -03:00 [INF] - Pendiente: 20250803063000_InitialPostgreSQLCompatible
+2025-08-03 02:35:39.698 -03:00 [INF] Aplicando migraciones pendientes...
+2025-08-03 02:35:39.701 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:35:39.703 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-08-03 02:35:39.705 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:35:39.706 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-08-03 02:35:39.708 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-08-03 02:35:39.713 -03:00 [INF] Applying migration '20250803052940_InitialMigration'.
+2025-08-03 02:35:39.786 -03:00 [ERR] Failed executing DbCommand (17ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoles] (
+    [Id] nvarchar(450) NOT NULL,
+    [Name] nvarchar(256) NULL,
+    [NormalizedName] nvarchar(256) NULL,
+    [ConcurrencyStamp] nvarchar(max) NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);
+2025-08-03 02:35:39.792 -03:00 [ERR] Error detallado al configurar base de datos
+Microsoft.Data.SqlClient.SqlException (0x80131904): There is already an object named 'AspNetRoles' in the database.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 163
+ClientConnectionId:95d43128-2fcb-4155-83c4-61239be1a9ed
+Error Number:2714,State:6,Class:16
+2025-08-03 02:35:39.814 -03:00 [ERR] Tipo de excepción: SqlException
+2025-08-03 02:35:39.815 -03:00 [ERR] Mensaje: There is already an object named 'AspNetRoles' in the database.
+2025-08-03 02:35:39.818 -03:00 [FTL] Application start-up failed
+Microsoft.Data.SqlClient.SqlException (0x80131904): There is already an object named 'AspNetRoles' in the database.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 163
+ClientConnectionId:95d43128-2fcb-4155-83c4-61239be1a9ed
+Error Number:2714,State:6,Class:16
+2025-08-03 02:36:04.343 -03:00 [INF] Starting up
+2025-08-03 02:36:04.415 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 02:36:04.416 -03:00 [INF] Environment: Development
+2025-08-03 02:36:04.417 -03:00 [INF] DATABASE_URL variable: NULL
+2025-08-03 02:36:04.417 -03:00 [INF] Using local development configuration
+2025-08-03 02:36:04.418 -03:00 [INF] connectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true
+2025-08-03 02:36:04.418 -03:00 [INF] Environment: Development
+2025-08-03 02:36:04.419 -03:00 [INF] Database URL exists: False
+2025-08-03 02:36:04.419 -03:00 [INF] Configuring SQL Server database context
+2025-08-03 02:36:04.462 -03:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 126
+2025-08-03 02:36:34.731 -03:00 [INF] Starting up
+2025-08-03 02:36:34.803 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 02:36:34.805 -03:00 [INF] Environment: Development
+2025-08-03 02:36:34.806 -03:00 [INF] DATABASE_URL variable: NULL
+2025-08-03 02:36:34.807 -03:00 [INF] Using local development configuration
+2025-08-03 02:36:34.807 -03:00 [INF] connectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true
+2025-08-03 02:36:34.808 -03:00 [INF] Environment: Development
+2025-08-03 02:36:34.809 -03:00 [INF] Database URL exists: False
+2025-08-03 02:36:34.809 -03:00 [INF] Configuring SQL Server database context
+2025-08-03 02:36:34.853 -03:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 126
+2025-08-03 02:37:00.223 -03:00 [INF] Starting up
+2025-08-03 02:37:00.296 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 02:37:00.298 -03:00 [INF] Environment: Production
+2025-08-03 02:37:00.299 -03:00 [INF] DATABASE_URL variable: postgresql://postgres:admin@localhost:5432/TurnoSmart
+2025-08-03 02:37:00.299 -03:00 [INF] Converting PostgreSQL URL: postgresql://postgres:admin@lo...
+2025-08-03 02:37:00.303 -03:00 [INF] Converted connection string: Host=localhost;Port=5432;Database=TurnoSmart;Username=postgres;Password=***;SSL Mode=Require;Trust Server Certificate=true
+2025-08-03 02:37:00.303 -03:00 [INF] Using DATABASE_URL for PostgreSQL connection - CONVERTED
+2025-08-03 02:37:00.304 -03:00 [INF] connectionString: Host=localhost;Port=5432;Database=TurnoSmart;Username=postgres;Password=admin;SSL Mode=Require;Trust Server Certificate=true
+2025-08-03 02:37:00.305 -03:00 [INF] Environment: Production
+2025-08-03 02:37:00.305 -03:00 [INF] Database URL exists: True
+2025-08-03 02:37:00.305 -03:00 [INF] Configuring PostgreSQL database context
+2025-08-03 02:37:00.342 -03:00 [FTL] Application start-up failed
+Microsoft.Extensions.Hosting.HostAbortedException: The host was aborted.
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.ThrowHostAborted()
+   at Microsoft.Extensions.Hosting.HostFactoryResolver.HostingListener.OnNext(KeyValuePair`2 value)
+   at System.Diagnostics.DiagnosticListener.Write(String name, Object value)
+   at Microsoft.Extensions.Hosting.HostBuilder.ResolveHost(IServiceProvider serviceProvider, DiagnosticListener diagnosticListener)
+   at Microsoft.Extensions.Hosting.HostApplicationBuilder.Build()
+   at Microsoft.AspNetCore.Builder.WebApplicationBuilder.Build()
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 126
+2025-08-03 02:37:54.213 -03:00 [INF] Starting up
+2025-08-03 02:37:54.295 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 02:37:54.298 -03:00 [INF] Environment: Development
+2025-08-03 02:37:54.299 -03:00 [INF] DATABASE_URL variable: postgresql://postgres:admin@localhost:5432/TurnoSmart
+2025-08-03 02:37:54.300 -03:00 [INF] Converting PostgreSQL URL: postgresql://postgres:admin@lo...
+2025-08-03 02:37:54.302 -03:00 [INF] Converted connection string: Host=localhost;Port=5432;Database=TurnoSmart;Username=postgres;Password=***;SSL Mode=Require;Trust Server Certificate=true
+2025-08-03 02:37:54.302 -03:00 [INF] Using DATABASE_URL for PostgreSQL connection - CONVERTED
+2025-08-03 02:37:54.303 -03:00 [INF] connectionString: Host=localhost;Port=5432;Database=TurnoSmart;Username=postgres;Password=admin;SSL Mode=Require;Trust Server Certificate=true
+2025-08-03 02:37:54.304 -03:00 [INF] Environment: Development
+2025-08-03 02:37:54.304 -03:00 [INF] Database URL exists: True
+2025-08-03 02:37:54.305 -03:00 [INF] Configuring PostgreSQL database context
+2025-08-03 02:38:03.060 -03:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://localhost:5432'.
+2025-08-03 02:38:03.064 -03:00 [ERR] Error detallado al configurar base de datos
+Npgsql.NpgsqlException (0x80004005): Failed to connect to 127.0.0.1:5432
+ ---> System.Net.Sockets.SocketException (10061): No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.RawOpen(SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|213_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Create()
+   at turno_smart.Data.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Data\ApplicationDbContext.cs:line 19
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 133
+2025-08-03 02:38:03.083 -03:00 [ERR] Tipo de excepción: NpgsqlException
+2025-08-03 02:38:03.084 -03:00 [ERR] Mensaje: Failed to connect to 127.0.0.1:5432
+2025-08-03 02:38:03.085 -03:00 [ERR] Excepción interna: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2025-08-03 02:38:03.086 -03:00 [FTL] Application start-up failed
+Npgsql.NpgsqlException (0x80004005): Failed to connect to 127.0.0.1:5432
+ ---> System.Net.Sockets.SocketException (10061): No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.RawOpen(SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|213_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Create()
+   at turno_smart.Data.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Data\ApplicationDbContext.cs:line 19
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 133
+2025-08-03 02:38:27.983 -03:00 [INF] Starting up
+2025-08-03 02:38:28.071 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 02:38:28.072 -03:00 [INF] Environment: Development
+2025-08-03 02:38:28.073 -03:00 [INF] DATABASE_URL variable: postgresql://postgres:admin@localhost:5432/TurnoSmart
+2025-08-03 02:38:28.074 -03:00 [INF] Converting PostgreSQL URL: postgresql://postgres:admin@lo...
+2025-08-03 02:38:28.075 -03:00 [INF] Converted connection string: Host=localhost;Port=5432;Database=TurnoSmart;Username=postgres;Password=***;SSL Mode=Require;Trust Server Certificate=true
+2025-08-03 02:38:28.076 -03:00 [INF] Using DATABASE_URL for PostgreSQL connection - CONVERTED
+2025-08-03 02:38:28.077 -03:00 [INF] connectionString: Host=localhost;Port=5432;Database=TurnoSmart;Username=postgres;Password=admin;SSL Mode=Require;Trust Server Certificate=true
+2025-08-03 02:38:28.077 -03:00 [INF] Environment: Development
+2025-08-03 02:38:28.078 -03:00 [INF] Database URL exists: True
+2025-08-03 02:38:28.078 -03:00 [INF] Configuring PostgreSQL database context
+2025-08-03 02:38:36.812 -03:00 [ERR] An error occurred using the connection to database 'postgres' on server 'tcp://localhost:5432'.
+2025-08-03 02:38:36.816 -03:00 [ERR] Error detallado al configurar base de datos
+Npgsql.NpgsqlException (0x80004005): Failed to connect to 127.0.0.1:5432
+ ---> System.Net.Sockets.SocketException (10061): No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.RawOpen(SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|213_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Create()
+   at turno_smart.Data.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Data\ApplicationDbContext.cs:line 19
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 133
+2025-08-03 02:38:36.836 -03:00 [ERR] Tipo de excepción: NpgsqlException
+2025-08-03 02:38:36.837 -03:00 [ERR] Mensaje: Failed to connect to 127.0.0.1:5432
+2025-08-03 02:38:36.837 -03:00 [ERR] Excepción interna: No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+2025-08-03 02:38:36.838 -03:00 [FTL] Application start-up failed
+Npgsql.NpgsqlException (0x80004005): Failed to connect to 127.0.0.1:5432
+ ---> System.Net.Sockets.SocketException (10061): No se puede establecer una conexión ya que el equipo de destino denegó expresamente dicha conexión.
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.Connect(NpgsqlTimeout timeout)
+   at Npgsql.Internal.NpgsqlConnector.RawOpen(SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.<Open>g__OpenCore|213_1(NpgsqlConnector conn, SslMode sslMode, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken, Boolean isFirstAttempt)
+   at Npgsql.Internal.NpgsqlConnector.Open(NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.UnpooledDataSource.Get(NpgsqlConnection conn, NpgsqlTimeout timeout, Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.<Open>g__OpenAsync|42_0(Boolean async, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlConnection.Open()
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenDbConnection(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.OpenInternal(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalConnection.Open(Boolean errorsExpected)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQuery(IEnumerable`1 migrationCommands, IRelationalConnection connection)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlDatabaseCreator.Create()
+   at turno_smart.Data.ApplicationDbContext..ctor(DbContextOptions`1 options) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Data\ApplicationDbContext.cs:line 19
+   at System.RuntimeMethodHandle.InvokeMethod(Object target, Void** arguments, Signature sig, Boolean isConstructor)
+   at System.Reflection.MethodBaseInvoker.InvokeDirectByRefWithFewArgs(Object obj, Span`1 copyOfArgs, BindingFlags invokeAttr)
+   at System.Reflection.MethodBaseInvoker.InvokeWithOneArg(Object obj, BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at System.Reflection.RuntimeConstructorInfo.Invoke(BindingFlags invokeAttr, Binder binder, Object[] parameters, CultureInfo culture)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitConstructor(ConstructorCallSite constructorCallSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSiteMain(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitCache(ServiceCallSite callSite, RuntimeResolverContext context, ServiceProviderEngineScope serviceProviderEngine, RuntimeResolverLock lockType)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.VisitScopeCache(ServiceCallSite callSite, RuntimeResolverContext context)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteVisitor`2.VisitCallSite(ServiceCallSite callSite, TArgument argument)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.CallSiteRuntimeResolver.Resolve(ServiceCallSite callSite, ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.DynamicServiceProviderEngine.<>c__DisplayClass2_0.<RealizeService>b__0(ServiceProviderEngineScope scope)
+   at Microsoft.Extensions.DependencyInjection.ServiceProvider.GetService(ServiceIdentifier serviceIdentifier, ServiceProviderEngineScope serviceProviderEngineScope)
+   at Microsoft.Extensions.DependencyInjection.ServiceLookup.ServiceProviderEngineScope.GetService(Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
+   at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 133
