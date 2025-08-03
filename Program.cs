@@ -110,6 +110,17 @@ namespace turno_smart
                 builder.Services.AddScoped<IRecepcionistaService, RecepcionistaService>(); 
                 var app = builder.Build();
 
+                // Ejecutar migraciones automáticamente en producción
+                using (var scope = app.Services.CreateScope())
+                {
+                    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                    
+                    // Aplicar migraciones pendientes automáticamente
+                    Log.Information("Verificando y aplicando migraciones de base de datos...");
+                    await context.Database.MigrateAsync();
+                    Log.Information("Migraciones aplicadas exitosamente.");
+                }
+
                 // Configure the HTTP request pipeline.
                 if (app.Environment.IsDevelopment())
                 {
