@@ -55,9 +55,6 @@ function handleFormSubmission(formSelector, resultContainerSelector) {
     $(document).on('submit', formSelector, function (event) {
         event.preventDefault();
         const form = $(this);
-        console.log(form.attr('action'));
-        console.log(form.attr('method'));
-        console.log(form.serialize());
         $.ajax({
             url: form.attr('action'),
             type: form.attr('method'),
@@ -69,8 +66,8 @@ function handleFormSubmission(formSelector, resultContainerSelector) {
                     $(resultContainerSelector).html(result);
                 }
             },
-            error: function () {
-                alert('Error al procesar la solicitud.');
+            error: function (xhr, status, error) {
+                alert('Error al procesar la solicitud: ' + error);
             }
         });
     });

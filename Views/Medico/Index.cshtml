@@ -10,9 +10,11 @@
     <div class="d-flex justify-content align-items-center gap-3">
         @if (@User.IsInRole("Admin"))
         {
-            <a type="button" class="btn btn-light btn-lg mt-4" asp-area="" asp-controller="Medico" asp-action="Create">
-                ➕ Crear Médico
-            </a>
+            <form method="get" asp-action="Create" id="create-btn">
+                <button type="submit" class="btn btn-light btn-lg mt-4" data-bs-toggle="modal" data-bs-target="#modal-create">
+                    ➕ Crear Médico
+                </button>
+            </form>
         }
     </div>
     <div class="row">

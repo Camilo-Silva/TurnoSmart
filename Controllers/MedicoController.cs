@@ -77,7 +77,7 @@ namespace turno_smart.Controllers
 				}).ToList(),
 			};
 
-			return View(createMedicoVM);
+			return PartialView(createMedicoVM);
 		}
 
         [HttpPost]
@@ -112,19 +112,19 @@ namespace turno_smart.Controllers
                         DNI = model.DNI,
                         Email = model.Email,
                         IdEspecialidad = model.IdEspecialidad,
-                        Reseña = model.Reseña,      // Nueva propiedad
-                        Imagen = model.Imagen,      // Nueva propiedad (URL)
+                        Reseña = model.Reseña ?? "",      // Usar string vacío si es null
+                        Imagen = model.Imagen ?? "",      // Usar string vacío si es null
                         Matricula = model.Matricula
                     };
 
                     _medicoService.Create(medico);
                     TempData["SuccessMessage"] = "Médico creado correctamente.";
-                    return RedirectToAction(nameof(Index));
+                    return Json(new { redirectUrl = Url.Action("Index") });
                 }
                 catch (Exception ex)
                 {
                     TempData["ErrorMessage"] = "Error al intentar crear medico." + ex.Message;
-                    return RedirectToAction(nameof(Index));
+                    return Json(new { redirectUrl = Url.Action("Index") });
                 }
             }
             foreach (var error in result.Errors)
@@ -138,7 +138,7 @@ namespace turno_smart.Controllers
                 Text = e.Nombre
             }).ToList();
 
-            return View(model);
+            return PartialView(model);
         }
 
         [HttpGet]
