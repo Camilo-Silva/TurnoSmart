@@ -125,42 +125,81 @@ namespace turno_smart
                 builder.Services.AddScoped<IRecepcionistaService, RecepcionistaService>(); 
                 var app = builder.Build();
 
-                // Ejecutar migraciones automáticamente en producción
+                // Ejecutar migraciones automáticamente
                 using (var scope = app.Services.CreateScope())
                 {
                     try
                     {
                         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                         
-                        // Configuración diferenciada por tipo de base de datos
-                        if (connectionString.Contains("postgres") || builder.Environment.IsProduction())
+                        Log.Information("Iniciando configuración de base de datos...");
+                        Log.Information("Connection String: {ConnectionString}", connectionString.Substring(0, Math.Min(connectionString.Length, 50)) + "...");
+                        
+                        // Verificar conexión a la base de datos
+                        var canConnect = await context.Database.CanConnectAsync();
+                        Log.Information("¿Puede conectarse a la base de datos? {CanConnect}", canConnect);
+                        
+                        if (canConnect)
                         {
-                            // Para PostgreSQL: usar EnsureCreated (compatible con todos los tipos)
-                            Log.Information("Configurando PostgreSQL - usando EnsureCreated...");
-                            
-                            // Solo crear si no existe
-                            if (!await context.Database.CanConnectAsync())
+                            // Verificar qué migraciones están aplicadas
+                            var appliedMigrations = await context.Database.GetAppliedMigrationsAsync();
+                            Log.Information("Migraciones aplicadas: {Count}", appliedMigrations.Count());
+                            foreach(var migration in appliedMigrations)
                             {
-                                Log.Information("Base de datos PostgreSQL no existe, creándola...");
-                                await context.Database.EnsureCreatedAsync();
-                                Log.Information("Base de datos PostgreSQL creada exitosamente.");
+                                Log.Information("- {Migration}", migration);
+                            }
+                            
+                            // Verificar migraciones pendientes
+                            var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
+                            Log.Information("Migraciones pendientes: {Count}", pendingMigrations.Count());
+                            foreach(var migration in pendingMigrations)
+                            {
+                                Log.Information("- Pendiente: {Migration}", migration);
+                            }
+                            
+                            if (pendingMigrations.Any())
+                            {
+                                Log.Information("Aplicando migraciones pendientes...");
+                                await context.Database.MigrateAsync();
+                                Log.Information("Migraciones aplicadas exitosamente.");
                             }
                             else
                             {
-                                Log.Information("Base de datos PostgreSQL ya existe y está conectada.");
+                                Log.Information("No hay migraciones pendientes.");
                             }
                         }
                         else
                         {
-                            // Para SQL Server: usar migraciones normalmente
-                            Log.Information("Configurando SQL Server - aplicando migraciones...");
+                            Log.Warning("No se puede conectar a la base de datos. Intentando crear con migraciones...");
                             await context.Database.MigrateAsync();
-                            Log.Information("Migraciones de SQL Server aplicadas exitosamente.");
+                            Log.Information("Base de datos creada y migraciones aplicadas exitosamente.");
                         }
+                        
+                        // Verificar que las tablas principales existan
+                        try
+                        {
+                            var usersCount = await context.Users.CountAsync();
+                            var pacientesCount = await context.Pacientes.CountAsync();
+                            
+                            Log.Information("Tabla Usuarios tiene {Count} registros", usersCount);
+                            Log.Information("Tabla Pacientes tiene {Count} registros", pacientesCount);
+                        }
+                        catch (Exception tableEx)
+                        {
+                            Log.Warning(tableEx, "No se pudieron verificar las tablas. Posiblemente no existan aún.");
+                        }
+                        
+                        Log.Information("Configuración de base de datos completada exitosamente.");
                     }
                     catch (Exception ex)
                     {
-                        Log.Error(ex, "Error al configurar base de datos");
+                        Log.Error(ex, "Error detallado al configurar base de datos");
+                        Log.Error("Tipo de excepción: {ExceptionType}", ex.GetType().Name);
+                        Log.Error("Mensaje: {Message}", ex.Message);
+                        if (ex.InnerException != null)
+                        {
+                            Log.Error("Excepción interna: {InnerMessage}", ex.InnerException.Message);
+                        }
                         throw; // Re-lanzar para que la aplicación falle rápido
                     }
                 }

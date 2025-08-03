@@ -193,7 +193,7 @@ namespace turno_smart.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CentroMedico");
+                    b.ToTable("CentroMedico", (string)null);
                 });
 
             modelBuilder.Entity("turno_smart.Models.Especialidad", b =>
@@ -214,7 +214,7 @@ namespace turno_smart.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Especialidades");
+                    b.ToTable("Especialidades", (string)null);
                 });
 
             modelBuilder.Entity("turno_smart.Models.Estudio", b =>
@@ -231,7 +231,7 @@ namespace turno_smart.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Estudios");
+                    b.ToTable("Estudios", (string)null);
                 });
 
             modelBuilder.Entity("turno_smart.Models.HistorialMedico", b =>
@@ -278,7 +278,7 @@ namespace turno_smart.Data.Migrations
 
                     b.HasIndex("IdPaciente");
 
-                    b.ToTable("HistorialesMedicos");
+                    b.ToTable("HistorialesMedicos", (string)null);
                 });
 
             modelBuilder.Entity("turno_smart.Models.Medico", b =>
@@ -306,9 +306,6 @@ namespace turno_smart.Data.Migrations
                     b.Property<string>("Imagen")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Matricula")
-                        .HasColumnType("int");
-
                     b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -326,7 +323,7 @@ namespace turno_smart.Data.Migrations
 
                     b.HasIndex("IdEspecialidad");
 
-                    b.ToTable("Medicos");
+                    b.ToTable("Medicos", (string)null);
                 });
 
             modelBuilder.Entity("turno_smart.Models.Paciente", b =>
@@ -387,7 +384,7 @@ namespace turno_smart.Data.Migrations
                     b.HasIndex("DNI")
                         .IsUnique();
 
-                    b.ToTable("Pacientes");
+                    b.ToTable("Pacientes", (string)null);
                 });
 
             modelBuilder.Entity("turno_smart.Models.Recepcionista", b =>
@@ -420,7 +417,7 @@ namespace turno_smart.Data.Migrations
 
                     b.HasIndex("UsuarioId");
 
-                    b.ToTable("Recepcionistas");
+                    b.ToTable("Recepcionistas", (string)null);
                 });
 
             modelBuilder.Entity("turno_smart.Models.Turno", b =>
@@ -454,7 +451,7 @@ namespace turno_smart.Data.Migrations
 
                     b.HasIndex("IdPaciente");
 
-                    b.ToTable("Turnos");
+                    b.ToTable("Turnos", (string)null);
                 });
 
             modelBuilder.Entity("turno_smart.Models.Usuarios", b =>
