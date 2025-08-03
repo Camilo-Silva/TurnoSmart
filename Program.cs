@@ -57,7 +57,7 @@ namespace turno_smart
                 }
                 else
                 {
-                    // Para desarrollo local
+                    // Para desarrollo local - leer directamente de appsettings
                     connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
                     Log.Information("Using local development configuration");
                 }
