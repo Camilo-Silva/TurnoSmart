@@ -53,9 +53,12 @@ namespace turno_smart
                 }
                 else if (builder.Environment.IsProduction())
                 {
-                    // FORCE: En Production, buscar DATABASE_URL de Railway aunque no esté visible
-                    connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") ?? 
+                    // FORCE: En Production, usar PostgreSQL con Railway
+                    var railwayDbUrl = Environment.GetEnvironmentVariable("DATABASE_URL") ?? 
                                      "postgresql://postgres:YwGewhgtdosfCLUDjogpTGSIGbGMisbW@postgres.railway.internal:5432/railway";
+                    
+                    // Convertir URL de PostgreSQL a connection string de Npgsql
+                    connectionString = ConvertPostgresUrlToConnectionString(railwayDbUrl);
                     Log.Information("Using FORCED PostgreSQL connection for Railway Production");
                 }
                 else if (!string.IsNullOrEmpty(dbHost) && !string.IsNullOrEmpty(dbName) && !string.IsNullOrEmpty(dbPassword))
@@ -228,12 +231,29 @@ namespace turno_smart
                 Log.CloseAndFlush();
             }
         }
+
+        private static string ConvertPostgresUrlToConnectionString(string databaseUrl)
+        {
+            // Convertir de postgresql://user:password@host:port/database
+            // a Host=host;Port=port;Database=database;Username=user;Password=password
+            try 
+            {
+                var uri = new Uri(databaseUrl);
+                var connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.Trim('/')};Username={uri.UserInfo.Split(':')[0]};Password={uri.UserInfo.Split(':')[1]};SSL Mode=Require;Trust Server Certificate=true";
+                return connectionString;
+            }
+            catch
+            {
+                // Fallback manual para Railway
+                return "Host=postgres.railway.internal;Port=5432;Database=railway;Username=postgres;Password=YwGewhgtdosfCLUDjogpTGSIGbGMisbW;SSL Mode=Require;Trust Server Certificate=true";
+            }
+        }
     }
     public class TestUser()
     {
-        public string Email { get; set; }
-        public string Password { get; set; }
-        public string Role {  get; set; }
+        public string Email { get; set; } = string.Empty;
+        public string Password { get; set; } = string.Empty;
+        public string Role { get; set; } = string.Empty;
         public int DNI { get; set; }
     }
 }

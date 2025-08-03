@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj": {}
+    "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj": {}
   },
   "projects": {
-    "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj": {
+    "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
+        "projectUniqueName": "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
         "projectName": "turno-smart",
-        "projectPath": "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
+        "projectPath": "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\turno-smart.csproj",
         "packagesPath": "C:\\Users\\camil\\.nuget\\packages\\",
-        "outputPath": "D:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\obj\\",
+        "outputPath": "d:\\9.Proyectos\\TurnoSmart\\turno-smart\\turno-smart\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -52,7 +52,7 @@
           "dependencies": {
             "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[8.0.6, )"
+              "version": "[8.0.10, )"
             },
             "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
               "target": "Package",
