@@ -129,14 +129,23 @@ namespace turno_smart.Controllers
                                 Telefono = 0,
                                 Estado = 1, // 1 = Activo/Habilitado, 0 = Inactivo/Deshabilitado
                             };
+                            
+                            // Establecer la relación bidireccional
+                            users.Paciente = paciente;
                         }
                         else
                         {
                             _logger.LogInformation("Paciente ya existe con DNI: {DNI}", users.DNI);
+                            // Establecer la relación con el paciente existente
+                            users.Paciente = paciente;
+                            paciente.Usuario = users;
                         }
                         
                         _logger.LogInformation("Guardando paciente en base de datos");
                         _pacienteService.Create(paciente);
+                        
+                        // Actualizar el usuario con la relación establecida
+                        await _userManager.UpdateAsync(users);
                         
                         _logger.LogInformation("Registro de paciente completado exitosamente para email: {Email}", model.Email);
                         return PartialView("_RegistrationSuccess", model);
@@ -175,7 +184,19 @@ namespace turno_smart.Controllers
         public IActionResult Details(string? ActiveTab = "general")
         {
             var user = _userManager.GetUserAsync(User).Result;
+            if (user == null)
+            {
+                _logger.LogWarning("Usuario no autenticado intentó acceder a Details");
+                return RedirectToAction("Index", "Home");
+            }
+            
             var paciente = _pacienteService.GetByDNI(user.DNI);
+            if (paciente == null)
+            {
+                _logger.LogError("No se encontró paciente con DNI: {DNI} para usuario: {Email}", user.DNI, user.Email);
+                TempData["ErrorMessage"] = "No se encontró información de paciente. Contacte al administrador.";
+                return RedirectToAction("Index", "Home");
+            }
 
             var pacienteVM = new ProfileVM
             {

@@ -10,7 +10,7 @@ namespace turno_smart.Models
         public int DNI { get; set; }
         public virtual Paciente? Paciente { get; set; }
         public virtual Medico? Medico { get; set; }
-        public bool IsAdmin { get; set; }
+        public bool IsAdmin { get; set; } = false; // Establecer valor por defecto explícito
         //public string FirstName { get; set; } // Propiedad para el nombre
         //public string LastName { get; set; } // Propiedad para el apellido
 

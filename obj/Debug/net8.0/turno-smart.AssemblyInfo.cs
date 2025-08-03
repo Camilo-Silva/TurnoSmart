@@ -15,7 +15,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("turno-smart")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+90c0b8bb66ad73c318f1c36575e62f07a62e067b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b68298ce269830bf2d96b8be964b36c910d68f6")]
 [assembly: System.Reflection.AssemblyProductAttribute("turno-smart")]
 [assembly: System.Reflection.AssemblyTitleAttribute("turno-smart")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
