@@ -32,21 +32,52 @@ namespace turno_smart
                 // Add services to the container.
                 string connectionString;
 
+                // Prioridad de configuración:
+                // 1. DATABASE_URL (Railway, Render, Heroku)
+                // 2. Variables específicas de Docker
+                // 3. Connection string del appsettings
+                var databaseUrl = Environment.GetEnvironmentVariable("DATABASE_URL");
                 var dbHost = Environment.GetEnvironmentVariable("DB_HOST");
                 var dbName = Environment.GetEnvironmentVariable("DB_NAME");
                 var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
+                
                 Log.Information($"dbHost: {dbHost}, dbName: {dbName}, dbPassword: {dbPassword}");
-                if (!string.IsNullOrEmpty(dbHost) && !string.IsNullOrEmpty(dbName) && !string.IsNullOrEmpty(dbPassword))
+
+                if (!string.IsNullOrEmpty(databaseUrl))
                 {
+                    // Para Railway, Render, Heroku (PostgreSQL)
+                    connectionString = databaseUrl;
+                    Log.Information("Using DATABASE_URL for PostgreSQL connection");
+                }
+                else if (!string.IsNullOrEmpty(dbHost) && !string.IsNullOrEmpty(dbName) && !string.IsNullOrEmpty(dbPassword))
+                {
+                    // Para Docker con SQL Server
                     connectionString = $"Data Source={dbHost};Initial Catalog={dbName};User ID=sa;Password={dbPassword};TrustServerCertificate=True;";
+                    Log.Information("Using Docker SQL Server configuration");
                 }
                 else
-                {                    
+                {
+                    // Para desarrollo local
                     connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+                    Log.Information("Using local development configuration");
                 }
+                
                 Log.Information($"connectionString: {connectionString}");
-                builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+
+                // Configurar el contexto de base de datos
+                if (!string.IsNullOrEmpty(databaseUrl) && databaseUrl.Contains("postgres"))
+                {
+                    // Usar PostgreSQL para servicios en la nube
+                    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                        options.UseLazyLoadingProxies().UseNpgsql(connectionString));
+                }
+                else
+                {
+                    // Usar SQL Server para desarrollo y Azure
+                    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                        options.UseLazyLoadingProxies().UseSqlServer(connectionString));
+                }
+                
                 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
                 builder.Services.AddIdentity<Usuarios, IdentityRole>(options =>

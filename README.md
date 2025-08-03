@@ -97,7 +97,76 @@ turno-smart/
     └── lib/
 ```
 
-## 🚀 Instalación y Configuración
+## 🚀 Despliegue en la Nube
+
+### ⚠️ Importante: Netlify NO es compatible
+
+**Netlify** está diseñado para sitios estáticos y no soporta aplicaciones ASP.NET Core que requieren un servidor backend.
+
+### 🌟 Opciones Recomendadas para ASP.NET Core:
+
+#### 1. 🥇 Railway (Gratis y Fácil)
+- ✅ Soporte nativo para .NET Core
+- ✅ Base de datos PostgreSQL incluida
+- ✅ Deploy automático desde GitHub
+- ✅ 500 horas gratis mensuales
+
+**Pasos para Railway:**
+1. Ir a [railway.app](https://railway.app)
+2. Conectar con GitHub
+3. Seleccionar este repositorio
+4. Railway detectará automáticamente el Dockerfile
+5. ¡Listo! La app estará disponible en una URL
+
+#### 2. 🥈 Azure App Service
+- ✅ Soporte perfecto para .NET
+- ✅ Azure SQL Database
+- ⚠️ Requiere suscripción de Azure
+
+#### 3. 🥉 Render
+- ✅ Plan gratuito disponible
+- ✅ PostgreSQL incluido
+- ✅ Deploy desde GitHub
+
+### � Archivos de Configuración Incluidos
+
+El proyecto ya incluye todos los archivos necesarios para despliegue:
+- `Dockerfile.production` - Para Railway/Render
+- `appsettings.Production.json` - Configuración de producción
+- `railway.yml` - Configuración específica de Railway
+- `deployment-guide.md` - Guía detallada de despliegue
+
+### 🗄️ Base de Datos
+
+El proyecto soporta automáticamente:
+- **SQL Server** (desarrollo local)
+- **PostgreSQL** (Railway, Render)
+- **Azure SQL** (Azure App Service)
+
+### 🚀 Deploy Rápido en Railway
+
+1. **Push al repositorio GitHub**
+2. **Ir a railway.app**
+3. **Conectar GitHub y seleccionar repo**
+4. **Railway hará el deploy automáticamente**
+5. **¡Tu app estará live en minutos!**
+
+Para más detalles, ver `deployment-guide.md`
+
+## 📊 Migración de LocalDB
+
+Tu connection string actual:
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true"
+  }
+}
+```
+
+**Se migrará automáticamente a PostgreSQL** cuando deploys en Railway/Render.
+
+## 🔧 Instalación Local
 
 ### Prerrequisitos
 - **.NET 8.0 SDK** o superior
@@ -105,7 +174,7 @@ turno-smart/
 - **Visual Studio 2022** / **VS Code** (recomendado)
 - **Git**
 
-### 🔧 Configuración Local
+### Configuración Local
 
 1. **Clonar el repositorio**
 ```bash
@@ -115,26 +184,15 @@ cd turno-smart
 
 2. **Configurar la base de datos**
 ```bash
-# Actualizar la base de datos con las migraciones
 dotnet ef database update
 ```
 
-3. **Configurar connection string** (si es necesario)
-Editar `appsettings.json`:
-```json
-{
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true"
-  }
-}
-```
-
-4. **Ejecutar la aplicación**
+3. **Ejecutar la aplicación**
 ```bash
 dotnet run
 ```
 
-5. **Acceder a la aplicación**
+4. **Acceder a la aplicación**
 Abrir el navegador en: `https://localhost:7139` o `http://localhost:5139`
 
 ### 🐳 Configuración con Docker
