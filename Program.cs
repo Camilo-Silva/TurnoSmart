@@ -63,6 +63,8 @@ namespace turno_smart
                 }
                 
                 Log.Information($"connectionString: {connectionString}");
+                Log.Information($"Environment: {builder.Environment.EnvironmentName}");
+                Log.Information($"Database URL exists: {!string.IsNullOrEmpty(databaseUrl)}");
 
                 // Configurar el contexto de base de datos
                 if (!string.IsNullOrEmpty(databaseUrl) && databaseUrl.Contains("postgres"))
@@ -113,12 +115,20 @@ namespace turno_smart
                 // Ejecutar migraciones automáticamente en producción
                 using (var scope = app.Services.CreateScope())
                 {
-                    var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                    
-                    // Aplicar migraciones pendientes automáticamente
-                    Log.Information("Verificando y aplicando migraciones de base de datos...");
-                    await context.Database.MigrateAsync();
-                    Log.Information("Migraciones aplicadas exitosamente.");
+                    try
+                    {
+                        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+                        
+                        // Aplicar migraciones pendientes automáticamente
+                        Log.Information("Verificando y aplicando migraciones de base de datos...");
+                        await context.Database.MigrateAsync();
+                        Log.Information("Migraciones aplicadas exitosamente.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Log.Error(ex, "Error al aplicar migraciones de base de datos");
+                        throw; // Re-lanzar para que la aplicación falle rápido
+                    }
                 }
 
                 // Configure the HTTP request pipeline.
@@ -133,7 +143,12 @@ namespace turno_smart
                     app.UseHsts();
                 }
 
-                app.UseHttpsRedirection();
+                // Solo redirigir HTTPS en desarrollo local, no en Railway
+                if (app.Environment.IsDevelopment())
+                {
+                    app.UseHttpsRedirection();
+                }
+                
                 app.UseStaticFiles();
 
                 app.UseRouting();
