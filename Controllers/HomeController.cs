@@ -95,14 +95,16 @@ namespace turno_smart.Controllers
 
             if (centroMedico == null)
             {
-                centroMedico = new CentroMedico();
-                centroMedico.Nombre = "Centro Médico";
-                centroMedico.Lema = "Donde su salud es primero";
-                centroMedico.Direccion = "Dirección no disponible";
-                centroMedico.Correo = "mail@example.com";
-                centroMedico.Telefono = "Teléfono no disponible";
-
-                _context.CentroMedico.Add(centroMedico);
+                // Crear un objeto temporal para la vista, pero NO lo guardamos en la base de datos
+                centroMedico = new CentroMedico()
+                {
+                    Id = 0, // Id = 0 indica que es un nuevo registro
+                    Nombre = "Centro Médico",
+                    Lema = "Donde su salud es primero",
+                    Direccion = "Dirección no disponible",
+                    Correo = "mail@example.com",
+                    Telefono = "Teléfono no disponible"
+                };
             }
 
             return View(centroMedico);
@@ -116,10 +118,42 @@ namespace turno_smart.Controllers
                 return View(model);
             }
 
-            _context.Update(model);
-            _context.SaveChanges();
+            try
+            {
+                // Buscar si ya existe un registro
+                var centroMedicoExistente = _context.CentroMedico.FirstOrDefault();
 
-            return View(model);
+                if (centroMedicoExistente != null)
+                {
+                    // Actualizar el registro existente
+                    centroMedicoExistente.Nombre = model.Nombre;
+                    centroMedicoExistente.Lema = model.Lema;
+                    centroMedicoExistente.Direccion = model.Direccion;
+                    centroMedicoExistente.Correo = model.Correo;
+                    centroMedicoExistente.Telefono = model.Telefono;
+                    
+                    _context.Update(centroMedicoExistente);
+                }
+                else
+                {
+                    // Crear nuevo registro
+                    _context.Add(model);
+                }
+
+                _context.SaveChanges();
+                
+                // Agregar mensaje de éxito
+                TempData["SuccessMessage"] = "Información del centro médico actualizada correctamente.";
+                
+                // Recargar el modelo actualizado desde la base de datos
+                var centroMedicoActualizado = _context.CentroMedico.FirstOrDefault();
+                return View(centroMedicoActualizado ?? model);
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error al guardar la información: " + ex.Message;
+                return View(model);
+            }
         }
     }
 }

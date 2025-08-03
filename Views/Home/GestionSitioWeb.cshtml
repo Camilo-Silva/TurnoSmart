@@ -6,11 +6,13 @@
 
 <div class="container py-5">
     <h1 class="h3 mb-4">Gestión de Contenido Web</h1>
+    
     <div class="row">
         <div class="card">
             <div class="card-body">
                 <h2 class="h5 mb-3">Información de la Clínica</h2>
                 <form asp-action="GestionSitioWeb" method="post">
+                    <input asp-for="Id" type="hidden" />
                     <div class="mb-3">
                         <label asp-for="Nombre" class="form-label"></label>
                         <input asp-for="Nombre" class="form-control" />
@@ -44,3 +46,38 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            var successMessage = '@TempData["SuccessMessage"]';
+            var errorMessage = '@TempData["ErrorMessage"]';
+
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            };
+
+            if (successMessage && successMessage.trim() !== '') {
+                toastr.success(successMessage);
+            }
+
+            if (errorMessage && errorMessage.trim() !== '') {
+                toastr.error(errorMessage);
+            }
+        });
+    </script>
+}
