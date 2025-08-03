@@ -9,11 +9,11 @@ using turno_smart.Data;
 
 #nullable disable
 
-namespace turno_smart.Data.Migrations
+namespace turno_smart.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20241121193300_FixRelations")]
-    partial class FixRelations
+    [Migration("20250803052940_InitialMigration")]
+    partial class InitialMigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -161,6 +161,44 @@ namespace turno_smart.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("turno_smart.Models.CentroMedico", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Correo")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Direccion")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Lema")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<string>("Telefono")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("CentroMedico");
+                });
+
             modelBuilder.Entity("turno_smart.Models.Especialidad", b =>
                 {
                     b.Property<int>("Id")
@@ -207,8 +245,15 @@ namespace turno_smart.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("IdEstudio")
+                    b.Property<string>("Diagnostico")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("EstudioId")
                         .HasColumnType("int");
+
+                    b.Property<DateTime>("Fecha")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("IdMedico")
                         .HasColumnType("int");
@@ -216,9 +261,29 @@ namespace turno_smart.Data.Migrations
                     b.Property<int>("IdPaciente")
                         .HasColumnType("int");
 
+                    b.Property<string>("NotasAdicionales")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prescripciones")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Seguimiento")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Sintomas")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Tratamiento")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdEstudio");
+                    b.HasIndex("EstudioId");
 
                     b.HasIndex("IdMedico");
 
@@ -249,8 +314,17 @@ namespace turno_smart.Data.Migrations
                     b.Property<int>("IdEspecialidad")
                         .HasColumnType("int");
 
+                    b.Property<string>("Imagen")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Matricula")
+                        .HasColumnType("int");
+
                     b.Property<string>("Nombre")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Reseña")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("Telefono")
@@ -327,6 +401,39 @@ namespace turno_smart.Data.Migrations
                     b.ToTable("Pacientes");
                 });
 
+            modelBuilder.Entity("turno_smart.Models.Recepcionista", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Apellido")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DNI")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UsuarioId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("Recepcionistas");
+                });
+
             modelBuilder.Entity("turno_smart.Models.Turno", b =>
                 {
                     b.Property<int>("Id")
@@ -383,14 +490,14 @@ namespace turno_smart.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<bool>("IsAdmin")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
                         .HasColumnType("datetimeoffset");
-
-                    b.Property<int?>("MedicoId")
-                        .HasColumnType("int");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256)
@@ -399,9 +506,6 @@ namespace turno_smart.Data.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
-
-                    b.Property<int?>("PacienteId")
-                        .HasColumnType("int");
 
                     b.Property<string>("PasswordHash")
                         .HasColumnType("nvarchar(max)");
@@ -427,8 +531,6 @@ namespace turno_smart.Data.Migrations
                     b.HasIndex("DNI")
                         .IsUnique();
 
-                    b.HasIndex("MedicoId");
-
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -436,8 +538,6 @@ namespace turno_smart.Data.Migrations
                         .IsUnique()
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.HasIndex("PacienteId");
 
                     b.ToTable("AspNetUsers", (string)null);
                 });
@@ -495,11 +595,9 @@ namespace turno_smart.Data.Migrations
 
             modelBuilder.Entity("turno_smart.Models.HistorialMedico", b =>
                 {
-                    b.HasOne("turno_smart.Models.Estudio", "Estudio")
+                    b.HasOne("turno_smart.Models.Estudio", null)
                         .WithMany("HistorialMedico")
-                        .HasForeignKey("IdEstudio")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("EstudioId");
 
                     b.HasOne("turno_smart.Models.Medico", "Medico")
                         .WithMany("HistorialMedico")
@@ -513,8 +611,6 @@ namespace turno_smart.Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.Navigation("Estudio");
-
                     b.Navigation("Medico");
 
                     b.Navigation("Paciente");
@@ -523,7 +619,7 @@ namespace turno_smart.Data.Migrations
             modelBuilder.Entity("turno_smart.Models.Medico", b =>
                 {
                     b.HasOne("turno_smart.Models.Usuarios", "Usuario")
-                        .WithOne()
+                        .WithOne("Medico")
                         .HasForeignKey("turno_smart.Models.Medico", "DNI")
                         .HasPrincipalKey("turno_smart.Models.Usuarios", "DNI")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -543,11 +639,20 @@ namespace turno_smart.Data.Migrations
             modelBuilder.Entity("turno_smart.Models.Paciente", b =>
                 {
                     b.HasOne("turno_smart.Models.Usuarios", "Usuario")
-                        .WithOne()
+                        .WithOne("Paciente")
                         .HasForeignKey("turno_smart.Models.Paciente", "DNI")
                         .HasPrincipalKey("turno_smart.Models.Usuarios", "DNI")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("Usuario");
+                });
+
+            modelBuilder.Entity("turno_smart.Models.Recepcionista", b =>
+                {
+                    b.HasOne("turno_smart.Models.Usuarios", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UsuarioId");
 
                     b.Navigation("Usuario");
                 });
@@ -565,21 +670,6 @@ namespace turno_smart.Data.Migrations
                         .HasForeignKey("IdPaciente")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Medico");
-
-                    b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("turno_smart.Models.Usuarios", b =>
-                {
-                    b.HasOne("turno_smart.Models.Medico", "Medico")
-                        .WithMany()
-                        .HasForeignKey("MedicoId");
-
-                    b.HasOne("turno_smart.Models.Paciente", "Paciente")
-                        .WithMany()
-                        .HasForeignKey("PacienteId");
 
                     b.Navigation("Medico");
 
@@ -608,6 +698,13 @@ namespace turno_smart.Data.Migrations
                     b.Navigation("HistorialMedico");
 
                     b.Navigation("Turnos");
+                });
+
+            modelBuilder.Entity("turno_smart.Models.Usuarios", b =>
+                {
+                    b.Navigation("Medico");
+
+                    b.Navigation("Paciente");
                 });
 #pragma warning restore 612, 618
         }

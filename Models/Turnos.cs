@@ -1,6 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using turno_smart.Data.Migrations;
 
 namespace turno_smart.Models
 {
