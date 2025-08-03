@@ -1,12 +1,12 @@
 # Configuración para Railway
 
 build:
-  type: dockerfile
+  dockerfilePath: Dockerfile.production
 
 deploy:
   startCommand: dotnet turno-smart.dll
   healthcheckPath: /
 
 # Variables de entorno necesarias:
-# ASPNETCORE_ENVIRONMENT=Production
+# ASPNETCORE_ENVIRONMENT=Production  
 # DATABASE_URL=(proporcionado automáticamente por Railway)

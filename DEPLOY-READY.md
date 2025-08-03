@@ -15,7 +15,7 @@
 #### Paso 1: Preparar GitHub
 ```bash
 git add .
-git commit -m "Configurar para despliegue en Railway"
+git commit -m "Fix: Corregir estructura de archivos para Railway"
 git push origin main
 ```
 
