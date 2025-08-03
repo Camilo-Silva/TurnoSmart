@@ -22,33 +22,33 @@ namespace turno_smart.Controllers
 
         public async Task<IActionResult> Index()
         {
-            // Obtener un centro médico (el primer registro)
+            // Obtener un centro mÃ©dico (el primer registro)
             var centroMedico = await _context.CentroMedico.FirstOrDefaultAsync();
 
             var random = new Random();
 
-            // Traer todos los médicos de la base de datos
+            // Traer todos los mÃ©dicos de la base de datos
             var allDoctors = await _context.Medicos
                 .Include(m => m.Especialidad) // Cargar especialidades relacionadas
                 .ToListAsync();
 
-            // Seleccionar aleatoriamente 6 médicos
+            // Seleccionar aleatoriamente 6 mÃ©dicos
             var doctors = allDoctors
                 .OrderBy(m => random.Next()) // Ordenar aleatoriamente en memoria
-                .Take(6) // Tomar solo 6 médicos
+                .Take(6) // Tomar solo 6 mÃ©dicos
                 .Select(m => new DoctorVM
                 {
                     Image = m.Imagen ?? "",
                     Name = m.FullName(),
                     Specialty = m.Especialidad != null ? m.Especialidad.Nombre : "Sin Especialidad",
-                    Description = m.Reseña ?? "Sin descripción disponible"
+                    Description = m.ReseÃ±a ?? "Sin descripciÃ³n disponible"
                 })
                 .ToList();
 
             // Crear un ViewModel para enviar ambos datos a la vista
             var viewModel = new HomeVM
             {
-                NombreCentroMedico = centroMedico?.Nombre ?? "Centro Médico",
+                NombreCentroMedico = centroMedico?.Nombre ?? "Centro MÃ©dico",
                 LemaCentroMedico = centroMedico?.Lema ?? "Donde su salud es primero",
                 Doctors = doctors
             };
@@ -64,14 +64,14 @@ namespace turno_smart.Controllers
 
         public IActionResult Contacto()
         {
-            // Obtén los datos del centro médico
+            // ObtÃ©n los datos del centro mÃ©dico
             var centroMedico = _context.CentroMedico.FirstOrDefault();
 
             var viewModel = new ContactoViewModel
             {
-                Direccion = centroMedico?.Direccion ?? "Dirección no disponible",
+                Direccion = centroMedico?.Direccion ?? "DirecciÃ³n no disponible",
                 Correo = centroMedico?.Correo ?? "mail@example.com",
-                Telefono = centroMedico?.Telefono ?? "Teléfono no disponible"
+                Telefono = centroMedico?.Telefono ?? "TelÃ©fono no disponible"
             };
 
             return View(viewModel);
@@ -96,11 +96,11 @@ namespace turno_smart.Controllers
             if (centroMedico == null)
             {
                 centroMedico = new CentroMedico();
-                centroMedico.Nombre = "Centro Médico";
+                centroMedico.Nombre = "Centro MÃ©dico";
                 centroMedico.Lema = "Donde su salud es primero";
-                centroMedico.Direccion = "Dirección no disponible";
+                centroMedico.Direccion = "DirecciÃ³n no disponible";
                 centroMedico.Correo = "mail@example.com";
-                centroMedico.Telefono = "Teléfono no disponible";
+                centroMedico.Telefono = "TelÃ©fono no disponible";
 
                 _context.CentroMedico.Add(centroMedico);
             }

@@ -26,7 +26,7 @@ namespace turno_smart
 
                 var builder = WebApplication.CreateBuilder(args);
 
-                // Configurar Serilog como el logger de la aplicaci�n
+                // Configurar Serilog como el logger de la aplicación
                 builder.Host.UseSerilog();
 
                 // Add services to the container.

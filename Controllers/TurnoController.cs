@@ -141,7 +141,7 @@ namespace turno_smart.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "La fecha y hora seleccionadas no son v�lidas.");
+                ModelState.AddModelError(string.Empty, "La fecha y hora seleccionadas no son válidas.");
                 return View(vm);
             }
             try
@@ -209,7 +209,7 @@ namespace turno_smart.Controllers
                 if (turno == null) return NotFound();
                 var availableSlots = await _medicoService.GetAvailableSlotsAsync(turno.IdMedico, 60, new TimeSpan(8, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(0, 30, 0));
                 
-                ModelState.AddModelError(string.Empty, "La fecha y hora seleccionadas no son v�lidas.");
+                ModelState.AddModelError(string.Empty, "La fecha y hora seleccionadas no son válidas.");
                 var newVM = new EditTurnoVM
                 {
                     TurnoId = turno.Id,
