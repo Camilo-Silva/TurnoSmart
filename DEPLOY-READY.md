@@ -4,18 +4,19 @@
 
 ### 📋 ¿Qué se configuró automáticamente?
 
-1. **✅ Dockerfile.production** - Configuración optimizada para la nube
+1. **✅ Dockerfile** - Configuración optimizada para Railway
 2. **✅ appsettings.Production.json** - Variables de entorno para producción  
 3. **✅ PostgreSQL Support** - Paquete Npgsql agregado
 4. **✅ Program.cs actualizado** - Detección automática de base de datos
 5. **✅ railway.yml** - Configuración específica de Railway
+6. **✅ .dockerignore** - Optimización del build
 
 ### 🚀 Deploy en Railway (RECOMENDADO)
 
 #### Paso 1: Preparar GitHub
 ```bash
 git add .
-git commit -m "Fix: Corregir estructura de archivos para Railway"
+git commit -m "Fix: Dockerfile corregido para Railway - version final"
 git push origin main
 ```
 
@@ -78,9 +79,10 @@ Una vez deployado, tu aplicación tendrá:
 ### 🆘 Troubleshooting
 
 **Si el deploy falla:**
-1. Verificar que `Dockerfile.production` existe
+1. Verificar que `Dockerfile` existe y está corregido
 2. Revisar logs en Railway dashboard
 3. Verificar que las migraciones sean compatibles con PostgreSQL
+4. Verificar que railway.yml usa `type: dockerfile`
 
 **Para ver logs:**
 ```bash

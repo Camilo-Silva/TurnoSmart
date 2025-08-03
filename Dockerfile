@@ -1,25 +1,30 @@
-#See https://aka.ms/customizecontainer to learn how to customize your debug container and how Visual Studio uses this Dockerfile to build your images for faster debugging.
-
+# Dockerfile optimizado para despliegue en la nube (Railway)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER app
 WORKDIR /app
 EXPOSE 8080
-EXPOSE 8081
+
+# Configurar para usar el puerto de la variable de entorno (Railway, Render, etc.)
+ENV ASPNETCORE_URLS=http://+:${PORT:-8080}
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
-ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["turno-smart/turno-smart.csproj", "turno-smart/"]
-RUN dotnet restore "./turno-smart/turno-smart.csproj"
+
+# Copiar archivo de proyecto (ruta corregida para Railway)
+COPY ["turno-smart.csproj", "./"]
+RUN dotnet restore "turno-smart.csproj"
+
+# Copiar el resto de los archivos
 COPY . .
-WORKDIR "/src/turno-smart"
-RUN dotnet build "./turno-smart.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "turno-smart.csproj" -c Release -o /app/build
 
 FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./turno-smart.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "turno-smart.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+
+# Crear directorio de logs
+RUN mkdir -p /app/logs
+
 ENTRYPOINT ["dotnet", "turno-smart.dll"]

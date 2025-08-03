@@ -1,7 +1,7 @@
 # Configuración para Railway
 
 build:
-  dockerfilePath: Dockerfile.production
+  type: dockerfile
 
 deploy:
   startCommand: dotnet turno-smart.dll
