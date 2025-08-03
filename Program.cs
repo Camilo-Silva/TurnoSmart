@@ -132,21 +132,23 @@ namespace turno_smart
                     {
                         var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
                         
-                        // Para PostgreSQL en producción, crear la base de datos directamente
-                        if (builder.Environment.IsProduction() && (!string.IsNullOrEmpty(databaseUrl) || connectionString.Contains("postgres")))
+                        // Aplicar migraciones tanto en desarrollo como en producción
+                        Log.Information("Verificando y aplicando migraciones de base de datos...");
+                        
+                        // Verificar si la base de datos existe, si no, crearla
+                        if (!await context.Database.CanConnectAsync())
                         {
-                            Log.Information("Creando base de datos PostgreSQL directamente...");
-                            await context.Database.EnsureDeletedAsync(); // Eliminar si existe
-                            await context.Database.EnsureCreatedAsync(); // Crear nueva
-                            Log.Information("Base de datos PostgreSQL creada exitosamente.");
+                            Log.Information("Base de datos no existe, creándola...");
+                            await context.Database.EnsureCreatedAsync();
                         }
                         else
                         {
-                            // Aplicar migraciones en desarrollo o SQL Server
-                            Log.Information("Verificando y aplicando migraciones de base de datos...");
+                            // Si existe, aplicar migraciones pendientes
+                            Log.Information("Base de datos existe, aplicando migraciones pendientes...");
                             await context.Database.MigrateAsync();
-                            Log.Information("Migraciones aplicadas exitosamente.");
                         }
+                        
+                        Log.Information("Configuración de base de datos completada exitosamente.");
                     }
                     catch (Exception ex)
                     {
