@@ -47,15 +47,14 @@ namespace turno_smart
 
                 if (!string.IsNullOrEmpty(databaseUrl))
                 {
-                    // Para Railway, Render, Heroku (PostgreSQL)
-                    connectionString = databaseUrl;
-                    Log.Information("Using DATABASE_URL for PostgreSQL connection");
+                    // Para Railway, Render, Heroku (PostgreSQL) - CONVERTIR URL
+                    connectionString = ConvertPostgresUrlToConnectionString(databaseUrl);
+                    Log.Information("Using DATABASE_URL for PostgreSQL connection - CONVERTED");
                 }
                 else if (builder.Environment.IsProduction())
                 {
                     // FORCE: En Production, usar PostgreSQL con Railway
-                    var railwayDbUrl = Environment.GetEnvironmentVariable("DATABASE_URL") ?? 
-                                     "postgresql://postgres:YwGewhgtdosfCLUDjogpTGSIGbGMisbW@postgres.railway.internal:5432/railway";
+                    var railwayDbUrl = "postgresql://postgres:YwGewhgtdosfCLUDjogpTGSIGbGMisbW@postgres.railway.internal:5432/railway";
                     
                     // Convertir URL de PostgreSQL a connection string de Npgsql
                     connectionString = ConvertPostgresUrlToConnectionString(railwayDbUrl);
@@ -238,14 +237,23 @@ namespace turno_smart
             // a Host=host;Port=port;Database=database;Username=user;Password=password
             try 
             {
+                Log.Information($"Converting PostgreSQL URL: {databaseUrl?.Substring(0, Math.Min(databaseUrl.Length, 30))}...");
+                
                 var uri = new Uri(databaseUrl);
-                var connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.Trim('/')};Username={uri.UserInfo.Split(':')[0]};Password={uri.UserInfo.Split(':')[1]};SSL Mode=Require;Trust Server Certificate=true";
+                var userInfo = uri.UserInfo.Split(':');
+                var connectionString = $"Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.Trim('/')};Username={userInfo[0]};Password={userInfo[1]};SSL Mode=Require;Trust Server Certificate=true";
+                
+                Log.Information($"Converted connection string: Host={uri.Host};Port={uri.Port};Database={uri.AbsolutePath.Trim('/')};Username={userInfo[0]};Password=***;SSL Mode=Require;Trust Server Certificate=true");
+                
                 return connectionString;
             }
-            catch
+            catch (Exception ex)
             {
+                Log.Error(ex, "Error converting PostgreSQL URL, using fallback");
                 // Fallback manual para Railway
-                return "Host=postgres.railway.internal;Port=5432;Database=railway;Username=postgres;Password=YwGewhgtdosfCLUDjogpTGSIGbGMisbW;SSL Mode=Require;Trust Server Certificate=true";
+                var fallback = "Host=postgres.railway.internal;Port=5432;Database=railway;Username=postgres;Password=YwGewhgtdosfCLUDjogpTGSIGbGMisbW;SSL Mode=Require;Trust Server Certificate=true";
+                Log.Information("Using fallback connection string");
+                return fallback;
             }
         }
     }
