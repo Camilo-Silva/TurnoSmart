@@ -7554,3 +7554,147 @@ Npgsql.NpgsqlException (0x80004005): Failed to connect to 127.0.0.1:5432
    at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService(IServiceProvider provider, Type serviceType)
    at Microsoft.Extensions.DependencyInjection.ServiceProviderServiceExtensions.GetRequiredService[T](IServiceProvider provider)
    at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 133
+2025-08-03 02:45:46.242 -03:00 [INF] Starting up
+2025-08-03 02:45:46.334 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 02:45:46.335 -03:00 [INF] Environment: Development
+2025-08-03 02:45:46.335 -03:00 [INF] DATABASE_URL variable: NULL
+2025-08-03 02:45:46.336 -03:00 [INF] Using local development configuration
+2025-08-03 02:45:46.336 -03:00 [INF] connectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true
+2025-08-03 02:45:46.337 -03:00 [INF] Environment: Development
+2025-08-03 02:45:46.337 -03:00 [INF] Database URL exists: False
+2025-08-03 02:45:46.338 -03:00 [INF] Configuring SQL Server database context
+2025-08-03 02:45:47.049 -03:00 [INF] Executed DbCommand (10ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:45:47.086 -03:00 [INF] Executed DbCommand (27ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 02:45:47.090 -03:00 [INF] Iniciando configuración de base de datos...
+2025-08-03 02:45:47.091 -03:00 [INF] Connection String: Server=(localdb)\mssqllocaldb;Database=aspnet-turn...
+2025-08-03 02:45:47.106 -03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:45:47.110 -03:00 [INF] ¿Puede conectarse a la base de datos? true
+2025-08-03 02:45:47.114 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:45:47.126 -03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-08-03 02:45:47.138 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-08-03 02:45:47.144 -03:00 [INF] Migraciones aplicadas: 20
+2025-08-03 02:45:47.144 -03:00 [INF] - 00000000000000_CreateIdentitySchema
+2025-08-03 02:45:47.146 -03:00 [INF] - 20241107001556_InitialIdentityMigration
+2025-08-03 02:45:47.146 -03:00 [INF] - 20241109230358_AddPacientesMedicosEspecialidadesTurnosEntities
+2025-08-03 02:45:47.147 -03:00 [INF] - 20241113231218_AddHistorialMedicoEstudiosEntities
+2025-08-03 02:45:47.149 -03:00 [INF] - 20241115200944_Especialidades
+2025-08-03 02:45:47.150 -03:00 [INF] - 20241118130048_CorreccionEnRelacionesYColumnas
+2025-08-03 02:45:47.151 -03:00 [INF] - 20241118195121_AddDisponibilidadModel
+2025-08-03 02:45:47.151 -03:00 [INF] - 20241119212940_TurnoCreado
+2025-08-03 02:45:47.152 -03:00 [INF] - 20241119215348_TurnoTable
+2025-08-03 02:45:47.152 -03:00 [INF] - 20241121020756_CreacionDeMedico
+2025-08-03 02:45:47.153 -03:00 [INF] - 20241121142224_ModificacionDeTableTurnos
+2025-08-03 02:45:47.153 -03:00 [INF] - 20241121193300_FixRelations
+2025-08-03 02:45:47.154 -03:00 [INF] - 20241121205054_TestRelacionUsuarios
+2025-08-03 02:45:47.154 -03:00 [INF] - 20241122000657_AgregadoDeVistaTurnos
+2025-08-03 02:45:47.155 -03:00 [INF] - 20241127214734_AddIsAdminToUsuarios
+2025-08-03 02:45:47.155 -03:00 [INF] - 20241217003740_AddColumnsInHistorialMedicoEntity
+2025-08-03 02:45:47.156 -03:00 [INF] - 20241219030857_CreateCentroMedicoTable
+2025-08-03 02:45:47.156 -03:00 [INF] - 20241220150327_MatriculaMedicos
+2025-08-03 02:45:47.157 -03:00 [INF] - 20241220151940_AddRecepcionistaEntity
+2025-08-03 02:45:47.157 -03:00 [INF] - 20241220213249_HistorialClinico
+2025-08-03 02:45:47.169 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:45:47.170 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-08-03 02:45:47.172 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-08-03 02:45:47.174 -03:00 [INF] Migraciones pendientes: 1
+2025-08-03 02:45:47.174 -03:00 [INF] - Pendiente: 20250803063000_InitialPostgreSQLCompatible
+2025-08-03 02:45:47.175 -03:00 [INF] Aplicando migraciones pendientes...
+2025-08-03 02:45:47.177 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:45:47.179 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-08-03 02:45:47.182 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 02:45:47.184 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT OBJECT_ID(N'[__EFMigrationsHistory]');
+2025-08-03 02:45:47.185 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [MigrationId], [ProductVersion]
+FROM [__EFMigrationsHistory]
+ORDER BY [MigrationId];
+2025-08-03 02:45:47.191 -03:00 [INF] Applying migration '20250803063000_InitialPostgreSQLCompatible'.
+2025-08-03 02:45:47.261 -03:00 [ERR] Failed executing DbCommand (12ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+CREATE TABLE [AspNetRoles] (
+    [Id] text NOT NULL,
+    [Name] character varying(256) NULL,
+    [NormalizedName] character varying(256) NULL,
+    [ConcurrencyStamp] text NULL,
+    CONSTRAINT [PK_AspNetRoles] PRIMARY KEY ([Id])
+);
+2025-08-03 02:45:47.269 -03:00 [ERR] Error detallado al configurar base de datos
+Microsoft.Data.SqlClient.SqlException (0x80131904): Column 'Id' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+Could not create constraint or index. See previous errors.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 163
+ClientConnectionId:52892ca2-28da-4d51-a22d-c0e282d2ef97
+Error Number:1919,State:1,Class:16
+2025-08-03 02:45:47.308 -03:00 [ERR] Tipo de excepción: SqlException
+2025-08-03 02:45:47.308 -03:00 [ERR] Mensaje: Column 'Id' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+Could not create constraint or index. See previous errors.
+2025-08-03 02:45:47.312 -03:00 [FTL] Application start-up failed
+Microsoft.Data.SqlClient.SqlException (0x80131904): Column 'Id' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
+Could not create constraint or index. See previous errors.
+   at Microsoft.Data.SqlClient.SqlConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.SqlInternalConnection.OnError(SqlException exception, Boolean breakConnection, Action`1 wrapCloseInAction)
+   at Microsoft.Data.SqlClient.TdsParser.ThrowExceptionAndWarning(TdsParserStateObject stateObj, Boolean callerHasConnectionLock, Boolean asyncClose)
+   at Microsoft.Data.SqlClient.TdsParser.TryRun(RunBehavior runBehavior, SqlCommand cmdHandler, SqlDataReader dataStream, BulkCopySimpleResultSet bulkCopyHandler, TdsParserStateObject stateObj, Boolean& dataReady)
+   at Microsoft.Data.SqlClient.SqlCommand.InternalEndExecuteNonQuery(IAsyncResult asyncResult, Boolean isInternal, String endMethod)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryInternal(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.EndExecuteNonQueryAsync(IAsyncResult asyncResult)
+   at Microsoft.Data.SqlClient.SqlCommand.<>c.<InternalExecuteNonQueryAsync>b__210_1(IAsyncResult result)
+   at System.Threading.Tasks.TaskFactory`1.FromAsyncCoreLogic(IAsyncResult iar, Func`2 endFunction, Action`1 endAction, Task`1 promise, Boolean requiresSynchronization)
+--- End of stack trace from previous location ---
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteNonQueryAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.MigrationCommandExecutor.ExecuteNonQueryAsync(IEnumerable`1 migrationCommands, IRelationalConnection connection, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Migrations.Internal.Migrator.MigrateAsync(String targetMigration, CancellationToken cancellationToken)
+   at turno_smart.Program.Main(String[] args) in D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart\Program.cs:line 163
+ClientConnectionId:52892ca2-28da-4d51-a22d-c0e282d2ef97
+Error Number:1919,State:1,Class:16

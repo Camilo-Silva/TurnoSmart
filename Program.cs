@@ -160,8 +160,13 @@ namespace turno_smart
                             if (pendingMigrations.Any())
                             {
                                 Log.Information("Aplicando migraciones pendientes...");
-                                await context.Database.MigrateAsync();
+                                using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
+                                await context.Database.MigrateAsync(cts.Token);
                                 Log.Information("Migraciones aplicadas exitosamente.");
+                                
+                                // Verificar que se aplicaron correctamente
+                                var newAppliedMigrations = await context.Database.GetAppliedMigrationsAsync();
+                                Log.Information("Total migraciones después de aplicar: {Count}", newAppliedMigrations.Count());
                             }
                             else
                             {

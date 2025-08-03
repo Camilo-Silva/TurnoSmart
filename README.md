@@ -99,6 +99,11 @@ turno-smart/
 
 ## 🚀 Despliegue en la Nube
 
+### ✅ PROBLEMA POSTGRESQL RESUELTO
+**El error `type 'nvarchar' does not exist` en PostgreSQL ha sido solucionado completamente.**
+
+Las migraciones están ahora compatibles con PostgreSQL y el deploy funciona correctamente en Railway.
+
 ### ⚠️ Importante: Netlify NO es compatible
 
 **Netlify** está diseñado para sitios estáticos y no soporta aplicaciones ASP.NET Core que requieren un servidor backend.
@@ -110,6 +115,7 @@ turno-smart/
 - ✅ Base de datos PostgreSQL incluida
 - ✅ Deploy automático desde GitHub
 - ✅ 500 horas gratis mensuales
+- ✅ **Migraciones PostgreSQL compatibles incluidas**
 
 **Pasos para Railway:**
 1. Ir a [railway.app](https://railway.app)
