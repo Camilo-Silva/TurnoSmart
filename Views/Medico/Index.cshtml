@@ -14,7 +14,6 @@
                 ➕ Crear Médico
             </a>
         }
-
     </div>
     <div class="row">
         <div class="col-lg-8">
@@ -58,13 +57,15 @@
                                     <li class="mb-3 d-flex justify-content-between align-items-center">
                                         @if (User.IsInRole("Admin"))
                                         {
-                                            <p class="text-decoration-none text-dark d-flex align-items-center">
+                                            <div class="d-flex align-items-center">
                                                 <span class="me-2">•</span>
                                                 @medico.Nombre
-                                            </p>                                           
-                                            <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-edit" data-id="@medico.Id">
-                                                Editar Médico
-                                            </button>
+                                            </div>                                           
+                                            <form method="get" asp-action="Edit" asp-route-id="@medico.Id" id="edit-btn">
+                                                <button type="submit" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-edit">
+                                                    Editar Médico
+                                                </button>
+                                            </form>
 
                                         }
                                         else
@@ -88,8 +89,11 @@
                 <p class="text-muted">No se encontraron profesionales</p>
             }
         </div>
-        @await Html.PartialAsync("_Modals")
+    </div>
+    @await Html.PartialAsync("_Modals")
+</div>
        
+
 @section Scripts {
     <script>
         $(document).ready(function () {

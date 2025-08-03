@@ -1,0 +1,87 @@
+@model turno_smart.ViewModels.MedicoVM.EditMedicoVM
+
+@{
+    Layout = null;
+}
+<div class="modal-header">
+    <div class="modal-title h4" id="modal-edit-label">Editar Médico</div>
+    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<div class="modal-body">
+    <p class="text-muted mb-4">Complete los datos para actualizar la información del médico en el sistema.</p>
+    <form method="post" asp-action="EditConfirmed" id="edit-form">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id"/>
+        
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Nombre" class="control-label">Nombre</label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Apellido" class="control-label">Apellido</label>
+                    <input asp-for="Apellido" class="form-control" />
+                    <span asp-validation-for="Apellido" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Email" class="control-label">Email</label>
+                    <input asp-for="Email" type="email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Telefono" class="control-label">Teléfono</label>
+                    <input asp-for="Telefono" type="number" class="form-control" />
+                    <span asp-validation-for="Telefono" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="IdEspecialidad" class="control-label">Especialidad</label>
+                    <select asp-for="IdEspecialidad" asp-items="Model.Especialidad" class="form-control">
+                        <option value="">Seleccione una especialidad</option>
+                    </select>
+                    <span asp-validation-for="IdEspecialidad" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="mb-3">
+                    <label asp-for="Matricula" class="control-label">Matrícula</label>
+                    <input asp-for="Matricula" type="number" class="form-control" />
+                    <span asp-validation-for="Matricula" class="text-danger"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Reseña" class="control-label">Reseña</label>
+            <textarea asp-for="Reseña" class="form-control" rows="3" placeholder="Descripción profesional (opcional)"></textarea>
+            <span asp-validation-for="Reseña" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="Imagen" class="control-label">URL de Imagen</label>
+            <input asp-for="Imagen" class="form-control" placeholder="https://ejemplo.com/imagen.jpg (opcional)" />
+            <span asp-validation-for="Imagen" class="text-danger"></span>
+        </div>
+
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+            <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        </div>
+    </form>
+</div>

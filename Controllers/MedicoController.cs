@@ -173,7 +173,7 @@ namespace turno_smart.Controllers
                         Text = e.Nombre
                     }).ToList(),
                 };
-                return Json(medicoModel);
+                return PartialView(medicoModel);
             }
             catch (Exception ex)
             {
@@ -211,6 +211,46 @@ namespace turno_smart.Controllers
             catch (Exception ex)
             {
                 return StatusCode(500, new { success = false, message = "Error interno del servidor: " + ex.Message });
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult EditConfirmed(EditMedicoVM obj)
+        {
+            ModelState.Remove("Especialidad");
+            if (!ModelState.IsValid)
+            {
+                TempData["ErrorMessage"] = "Por favor, corrija los errores en el formulario.";
+                return Json(new { redirectUrl = Url.Action("Index") });
+            }
+
+            try
+            {
+                var medico = _medicoService.GetById(obj.Id);
+                if (medico == null)
+                {
+                    TempData["ErrorMessage"] = "Médico no encontrado.";
+                    return Json(new { redirectUrl = Url.Action("Index") });
+                }
+
+                medico.Nombre = obj.Nombre ?? medico.Nombre;
+                medico.Apellido = obj.Apellido ?? medico.Apellido;
+                medico.Email = obj.Email ?? medico.Email;
+                medico.Telefono = obj.Telefono ?? medico.Telefono;
+                medico.IdEspecialidad = obj.IdEspecialidad;
+                medico.Reseña = obj.Reseña ?? medico.Reseña;
+                medico.Imagen = obj.Imagen ?? medico.Imagen;
+                medico.Matricula = obj.Matricula ?? medico.Matricula;
+
+                _medicoService.Update(medico);
+                TempData["SuccessMessage"] = "Médico actualizado correctamente.";
+                return Json(new { redirectUrl = Url.Action("Index") });
+            }
+            catch (Exception ex)
+            {
+                TempData["ErrorMessage"] = "Error al actualizar el médico: " + ex.Message;
+                return Json(new { redirectUrl = Url.Action("Index") });
             }
         }
 
