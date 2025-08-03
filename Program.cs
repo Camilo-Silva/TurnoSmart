@@ -42,12 +42,21 @@ namespace turno_smart
                 var dbPassword = Environment.GetEnvironmentVariable("DB_SA_PASSWORD");
                 
                 Log.Information($"dbHost: {dbHost}, dbName: {dbName}, dbPassword: {dbPassword}");
+                Log.Information($"Environment: {builder.Environment.EnvironmentName}");
+                Log.Information($"DATABASE_URL variable: {databaseUrl ?? "NULL"}");
 
                 if (!string.IsNullOrEmpty(databaseUrl))
                 {
                     // Para Railway, Render, Heroku (PostgreSQL)
                     connectionString = databaseUrl;
                     Log.Information("Using DATABASE_URL for PostgreSQL connection");
+                }
+                else if (builder.Environment.IsProduction())
+                {
+                    // FORCE: En Production, buscar DATABASE_URL de Railway aunque no esté visible
+                    connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") ?? 
+                                     "postgresql://postgres:YwGewhgtdosfCLUDjogpTGSIGbGMisbW@postgres.railway.internal:5432/railway";
+                    Log.Information("Using FORCED PostgreSQL connection for Railway Production");
                 }
                 else if (!string.IsNullOrEmpty(dbHost) && !string.IsNullOrEmpty(dbName) && !string.IsNullOrEmpty(dbPassword))
                 {
@@ -67,15 +76,17 @@ namespace turno_smart
                 Log.Information($"Database URL exists: {!string.IsNullOrEmpty(databaseUrl)}");
 
                 // Configurar el contexto de base de datos
-                if (!string.IsNullOrEmpty(databaseUrl) && databaseUrl.Contains("postgres"))
+                if ((!string.IsNullOrEmpty(databaseUrl) && databaseUrl.Contains("postgres")) || builder.Environment.IsProduction())
                 {
-                    // Usar PostgreSQL para servicios en la nube
+                    // Usar PostgreSQL para servicios en la nube Y para Production
+                    Log.Information("Configuring PostgreSQL database context");
                     builder.Services.AddDbContext<ApplicationDbContext>(options =>
                         options.UseLazyLoadingProxies().UseNpgsql(connectionString));
                 }
                 else
                 {
-                    // Usar SQL Server para desarrollo y Azure
+                    // Usar SQL Server para desarrollo local
+                    Log.Information("Configuring SQL Server database context");
                     builder.Services.AddDbContext<ApplicationDbContext>(options =>
                         options.UseLazyLoadingProxies().UseSqlServer(connectionString));
                 }
