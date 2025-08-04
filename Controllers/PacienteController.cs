@@ -55,7 +55,7 @@ namespace turno_smart.Controllers
             {
                 Nombre = string.Empty,
                 Apellido = string.Empty,
-                FechaNacimiento = DateTime.Now,
+                FechaNacimiento = DateTime.UtcNow, // PostgreSQL requiere UTC
                 DNI = 0,
                 Domicilio = string.Empty,
                 Ciudad = string.Empty,
@@ -64,7 +64,7 @@ namespace turno_smart.Controllers
                 Telefono = 0,
                 Email = string.Empty,
                 Estado = 1,
-                FechaAlta = DateTime.Now
+                FechaAlta = DateTime.UtcNow // PostgreSQL requiere UTC
             };
 
             return View(paciente);
@@ -287,7 +287,7 @@ namespace turno_smart.Controllers
                 if (paciente == null) return NotFound();
 
                 paciente.Estado = 0;
-                paciente.FechaBaja = DateTime.Now;
+                paciente.FechaBaja = DateTime.UtcNow; // PostgreSQL requiere UTC
 
                 _pacienteService.Update(paciente);
 

@@ -134,7 +134,7 @@ namespace turno_smart.Controllers
                                 DNI = dni,
                                 FechaNacimiento = model.FechaNacimiento,
                                 Email = model.Email,
-                                FechaAlta = DateTime.Now,
+                                FechaAlta = DateTime.UtcNow, // PostgreSQL requiere UTC
                                 Usuario = users,
                                 Ciudad = "",
                                 Provincia = "",

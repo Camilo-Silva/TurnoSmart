@@ -61,7 +61,7 @@ namespace turno_smart.Controllers
                 IdPaciente = pacienteId,
                 IdMedico = medicoId,
                 PacienteNombre = paciente.FullName(),
-                Fecha = DateTime.Now,
+                Fecha = DateTime.UtcNow, // PostgreSQL requiere UTC
                 Sintomas = "",
                 Diagnostico = "",
                 Tratamiento = "",
