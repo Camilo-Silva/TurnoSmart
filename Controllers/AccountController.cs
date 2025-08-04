@@ -88,10 +88,24 @@ namespace turno_smart.Controllers
                     var existingUserByDNI = await _userManager.Users.FirstOrDefaultAsync(u => u.DNI == dni);
                     if (existingUserByDNI != null)
                     {
-                        _logger.LogWarning("Intento de registro con DNI ya existente: {DNI}", dni);
-                        ModelState.AddModelError("DNI", "Ya existe un usuario registrado con este DNI.");
-                        return PartialView("_RegistrationModal", model);
+                        // Verificar si tiene un paciente asociado
+                        var existingPaciente = _pacienteService.GetByDNI(dni);
+                        if (existingPaciente == null)
+                        {
+                            _logger.LogWarning("Usuario huérfano detectado con DNI: {DNI} (sin paciente asociado). Eliminando usuario huérfano.", dni);
+                            // Eliminar usuario huérfano para permitir re-registro
+                            await _userManager.DeleteAsync(existingUserByDNI);
+                            _logger.LogInformation("Usuario huérfano eliminado. Procediendo con nuevo registro.");
+                        }
+                        else
+                        {
+                            _logger.LogWarning("Intento de registro con DNI ya existente: {DNI} para usuario existente: {ExistingEmail}", dni, existingUserByDNI.Email);
+                            ModelState.AddModelError("DNI", "Ya existe un usuario registrado con este DNI.");
+                            return PartialView("_RegistrationModal", model);
+                        }
                     }
+                    
+                    _logger.LogInformation("DNI {DNI} verificado como disponible, procediendo con la creación", dni);
                     
                     _logger.LogInformation("Creando usuario de Identity para DNI: {DNI}", dni);
                     Usuarios users = new Usuarios
@@ -190,8 +204,25 @@ namespace turno_smart.Controllers
                     // Log del error para debugging
                     _logger.LogError(ex, "Error al procesar el registro de paciente: {Message}", ex.Message);
                     
-                    // Mensaje de error genérico para el usuario
-                    ModelState.AddModelError("", "Error al procesar la solicitud: " + ex.Message);
+                    // Manejo específico de errores de PostgreSQL
+                    string errorMessage = "Error al procesar la solicitud.";
+                    
+                    if (ex.Message.Contains("duplicate key value violates unique constraint") && ex.Message.Contains("DNI"))
+                    {
+                        errorMessage = "El DNI ingresado ya está registrado en el sistema.";
+                        _logger.LogWarning("Intento de registro con DNI duplicado detectado en catch: {DNI}", model.DNI);
+                    }
+                    else if (ex.Message.Contains("foreign key constraint"))
+                    {
+                        errorMessage = "Error de base de datos: problema con relación de datos.";
+                        _logger.LogError("Error de foreign key constraint detectado: {Error}", ex.Message);
+                    }
+                    else
+                    {
+                        errorMessage = "Error al procesar la solicitud: " + ex.Message;
+                    }
+                    
+                    ModelState.AddModelError("", errorMessage);
                     return PartialView("_RegistrationModal", model);
                 }
             }
