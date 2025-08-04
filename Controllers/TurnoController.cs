@@ -36,7 +36,7 @@ namespace turno_smart.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            DateTime currentDate = date ?? DateTime.Today;
+            DateTime currentDate = date ?? DateTime.UtcNow.Date; // PostgreSQL requiere UTC
 
             var turnos = new List<Turno>();
             if (await _userManager.IsInRoleAsync(currentUser, "Paciente"))

@@ -71,32 +71,32 @@ namespace turno_smart.Services
 
         public async Task<Dictionary<DateTime, List<TimeSpan>>> GetAvailableSlotsAsync(int medicoId, int maxDays, TimeSpan startTime, TimeSpan endTime, TimeSpan slotLenght)
         {
-            // Obtén al médico por ID
+            // Obtï¿½n al mï¿½dico por ID
             var medico = await _DBContext.Medicos
                 .FirstOrDefaultAsync(m => m.Id == medicoId);
 
             if (medico == null)
             {
-                throw new Exception("Médico no encontrado.");
+                throw new Exception("Mï¿½dico no encontrado.");
             }
 
-            // Obtener los turnos existentes del médico en el rango de días solicitado
+            // Obtener los turnos existentes del mï¿½dico en el rango de dï¿½as solicitado
             var turnos = await _DBContext.Turnos
-                .Where(t => t.IdMedico == medicoId && t.FechaTurno >= DateTime.Today && t.FechaTurno <= DateTime.Today.AddDays(maxDays))
+                .Where(t => t.IdMedico == medicoId && t.FechaTurno >= DateTime.UtcNow.Date && t.FechaTurno <= DateTime.UtcNow.Date.AddDays(maxDays))
                 .ToListAsync();
 
             // Crear un diccionario para almacenar las fechas y los horarios disponibles
             var availableSlots = new Dictionary<DateTime, List<TimeSpan>>();
 
-            // Para cada día en el rango de maxDays
+            // Para cada dï¿½a en el rango de maxDays
             for (int i = 0; i < maxDays; i++)
             {
-                var date = DateTime.Today.AddDays(i).Date;
+                var date = DateTime.UtcNow.Date.AddDays(i); // PostgreSQL requiere UTC
                 var availableTimes = new List<TimeSpan>();
 
                 for (var currentTime = startTime; currentTime < endTime; currentTime = currentTime.Add(slotLenght))
                 {
-                    // Comprobar si el turno ya está reservado en esa fecha y hora
+                    // Comprobar si el turno ya estï¿½ reservado en esa fecha y hora
                     var isSlotTaken = turnos.Any(t => t.FechaTurno.Date == date.Date && t.FechaTurno.TimeOfDay == currentTime);
 
                     if (!isSlotTaken)
