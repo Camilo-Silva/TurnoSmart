@@ -29,7 +29,9 @@
 
 ### Backend
 - **Framework**: ASP.NET Core 8.0 MVC
-- **Base de Datos**: SQL Server / LocalDB
+- **Base de Datos**: 
+  - **Desarrollo**: SQL Server LocalDB
+  - **Producción**: PostgreSQL (Railway)
 - **ORM**: Entity Framework Core 8.0
 - **Autenticación**: ASP.NET Core Identity
 - **Logging**: Serilog
@@ -40,10 +42,13 @@
 - **Iconos**: Font Awesome / Bootstrap Icons
 - **Patrón**: MVC con Razor Views
 
-### Infraestructura
+### Infraestructura y Deploy
+- **Hosting**: Railway.app
 - **Contenedores**: Docker
-- **Entorno**: .NET 8.0
-- **Base de Datos**: SQL Server (LocalDB para desarrollo)
+- **CI/CD**: GitHub → Railway (auto-deploy)
+- **Base de Datos Producción**: PostgreSQL
+- **SSL**: Habilitado automáticamente
+- **URL Producción**: `https://turnosmart-production.up.railway.app`
 
 ## 📦 Dependencias Principales
 
@@ -54,8 +59,14 @@
 <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="8.0.10" />
 <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.10" />
 <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.10" />
+<PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.8" />
 <PackageReference Include="Serilog.AspNetCore" Version="8.0.3" />
 ```
+
+### 🔄 Dual Database Support
+La aplicación soporta automáticamente:
+- **SQL Server LocalDB**: Para desarrollo local
+- **PostgreSQL**: Para producción en Railway
 
 ## 🗂️ Estructura del Proyecto
 
@@ -97,67 +108,76 @@ turno-smart/
     └── lib/
 ```
 
-## 🚀 Despliegue en la Nube
+## 🚀 Despliegue - Railway
 
-### ✅ PROBLEMA POSTGRESQL RESUELTO
-**El error `type 'nvarchar' does not exist` en PostgreSQL ha sido solucionado completamente.**
+### ✅ Estado Actual: FUNCIONANDO 100%
 
-Las migraciones están ahora compatibles con PostgreSQL y el deploy funciona correctamente en Railway.
+**TurnoSmart** está desplegado exitosamente en **Railway** con PostgreSQL:
 
-### ⚠️ Importante: Netlify NO es compatible
+🌐 **URL de Producción**: `https://turnosmart-production.up.railway.app`
 
-**Netlify** está diseñado para sitios estáticos y no soporta aplicaciones ASP.NET Core que requieren un servidor backend.
+### 🎯 Por qué Railway
 
-### 🌟 Opciones Recomendadas para ASP.NET Core:
+- ✅ **Deploy automático** desde GitHub
+- ✅ **PostgreSQL gratis** incluido
+- ✅ **SSL/HTTPS automático**
+- ✅ **Detección automática** de .NET
+- ✅ **Variables de entorno** configuradas automáticamente
+- ✅ **Logs en tiempo real**
 
-#### 1. 🥇 Railway (Gratis y Fácil)
-- ✅ Soporte nativo para .NET Core
-- ✅ Base de datos PostgreSQL incluida
-- ✅ Deploy automático desde GitHub
-- ✅ 500 horas gratis mensuales
-- ✅ **Migraciones PostgreSQL compatibles incluidas**
+### 🔄 Proceso de Deploy
 
-**Pasos para Railway:**
-1. Ir a [railway.app](https://railway.app)
-2. Conectar con GitHub
-3. Seleccionar este repositorio
-4. Railway detectará automáticamente el Dockerfile
-5. ¡Listo! La app estará disponible en una URL
+```
+GitHub Push → Railway Build → PostgreSQL → Deploy Automático
+```
 
-#### 2. 🥈 Azure App Service
-- ✅ Soporte perfecto para .NET
-- ✅ Azure SQL Database
-- ⚠️ Requiere suscripción de Azure
+1. **Desarrollo Local** (SQL Server LocalDB)
+2. **Git Push** a main branch
+3. **Railway** detecta cambios automáticamente
+4. **Build** con Dockerfile
+5. **Deploy** a PostgreSQL
+6. **App disponible** en URL pública
 
-#### 3. 🥉 Render
-- ✅ Plan gratuito disponible
-- ✅ PostgreSQL incluido
-- ✅ Deploy desde GitHub
+### 🗄️ Base de Datos Dual
 
-### � Archivos de Configuración Incluidos
+#### Desarrollo Local
+```json
+{
+  "ConnectionStrings": {
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=aspnet-turno_smart;..."
+  }
+}
+```
 
-El proyecto ya incluye todos los archivos necesarios para despliegue:
-- `Dockerfile.production` - Para Railway/Render
-- `appsettings.Production.json` - Configuración de producción
-- `railway.yml` - Configuración específica de Railway
-- `deployment-guide.md` - Guía detallada de despliegue
+#### Producción (Railway)
+```bash
+DATABASE_URL=postgresql://postgres:password@host:port/railway
+```
 
-### 🗄️ Base de Datos
+### 🛠️ Problemas Resueltos
 
-El proyecto soporta automáticamente:
-- **SQL Server** (desarrollo local)
-- **PostgreSQL** (Railway, Render)
-- **Azure SQL** (Azure App Service)
+1. **✅ PostgreSQL Compatibility**: Migraciones adaptadas
+2. **✅ DateTime UTC**: Todas las fechas en formato UTC
+3. **✅ Foreign Keys**: Relaciones DNI-based funcionando
+4. **✅ Entity Framework**: Dual provider SQL Server/PostgreSQL
+
+### 📋 Archivos de Configuración
+
+El proyecto incluye los archivos necesarios para Railway:
+- ✅ `Dockerfile` - Configuración de contenedor
+- ✅ `appsettings.Production.json` - Variables de producción
+- ✅ `railway.yml` - Configuración específica de Railway
+- ✅ `deployment-guide.md` - Guía detallada completa
 
 ### 🚀 Deploy Rápido en Railway
 
 1. **Push al repositorio GitHub**
 2. **Ir a railway.app**
 3. **Conectar GitHub y seleccionar repo**
-4. **Railway hará el deploy automáticamente**
-5. **¡Tu app estará live en minutos!**
+4. **Railway detecta .NET automáticamente**
+5. **¡App disponible en URL pública!**
 
-Para más detalles, ver `deployment-guide.md`
+📖 **Para más detalles**: Ver `deployment-guide.md`
 
 ## 📊 Migración de LocalDB
 
@@ -340,6 +360,30 @@ WORKDIR /app
 EXPOSE 8080
 EXPOSE 8081
 ```
+
+## 🎉 Estado del Proyecto
+
+### ✅ COMPLETAMENTE FUNCIONAL
+
+**TurnoSmart** está 100% operativo tanto en desarrollo como en producción:
+
+- 🌐 **Producción**: https://turnosmart-production.up.railway.app
+- 🏠 **Desarrollo**: http://localhost:5031
+- 📊 **Base de Datos**: PostgreSQL (Railway) + SQL Server (Local)
+- 🔄 **CI/CD**: Deploy automático desde GitHub
+- 🔒 **SSL**: Habilitado
+- 📱 **Responsive**: Funciona en móviles y desktop
+
+### 🚀 Funcionalidades Verificadas
+
+- ✅ **Autenticación y Registro** de pacientes
+- ✅ **Gestión de Médicos** con especialidades
+- ✅ **Sistema de Turnos** completo
+- ✅ **CRUD Especialidades** funcionando
+- ✅ **Historial Médico** operativo
+- ✅ **Sistema de Roles** (Admin, Paciente, Médico, Recepcionista)
+- ✅ **Modales interactivos** para formularios
+- ✅ **Validaciones** cliente y servidor
 
 ## 🤝 Contribución
 

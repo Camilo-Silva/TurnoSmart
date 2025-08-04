@@ -1,55 +1,94 @@
-# Guía de Despliegue - TurnoSmart
+# 🚀 Guía de Despliegue - TurnoSmart
 
-## 🚀 Opciones de Despliegue para ASP.NET Core
+## ✅ Configuración Actual - Railway + PostgreSQL
 
-### 1. Azure App Service (Recomendado)
+**TurnoSmart** está deployado exitosamente en **Railway** con las siguientes características:
 
-#### Configuración de Base de Datos
-1. **Crear Azure SQL Database**
-```bash
-# Crear resource group
-az group create --name turno-smart-rg --location "East US"
+### 🎯 Stack Tecnológico de Producción
+- **Frontend**: ASP.NET Core 8.0 MVC
+- **Backend**: C# con Entity Framework Core
+- **Base de Datos**: PostgreSQL (Railway)
+- **Hosting**: Railway.app
+- **SSL**: Habilitado automáticamente
+- **Domain**: `turnosmart-production.up.railway.app`
 
-# Crear SQL Server
-az sql server create \
-  --name turno-smart-sql-server \
-  --resource-group turno-smart-rg \
-  --location "East US" \
-  --admin-user tu_usuario \
-  --admin-password tu_password_segura
+### 🏗️ Arquitectura de Deploy
 
-# Crear base de datos
-az sql db create \
-  --resource-group turno-smart-rg \
-  --server turno-smart-sql-server \
-  --name turno-smart-db \
-  --service-objective Basic
+```
+GitHub Repository → Railway → PostgreSQL
+      ↓                ↓           ↓
+   git push    →   Auto Deploy → Migrations
 ```
 
-#### Connection String para Azure
-```json
+## 🚀 Railway - Configuración Actual
+
+### ¿Por qué Railway?
+- ✅ **Deploy automático** desde GitHub
+- ✅ **PostgreSQL gratis** incluido
+- ✅ **SSL/HTTPS automático**
+- ✅ **Detección automática** de .NET
+- ✅ **Logs en tiempo real**
+- ✅ **Variables de entorno** automáticas
+
+### Configuración Actual
+```yaml
+# railway.yml
+version: 2
+build:
+  provider: dockerfile
+deploy:
+  healthcheckPath: /
+  healthcheckTimeout: 100
+  restartPolicyType: always
+```
+
+## 📊 Soluciones Implementadas
+
+### 1. Compatibilidad PostgreSQL vs SQL Server
+**Problema**: La app funcionaba en localhost (SQL Server) pero fallaba en Railway (PostgreSQL)
+
+**Solución**:
+```csharp
+// ApplicationDbContext.cs - Converter automático UTC
+foreach (var entityType in modelBuilder.Model.GetEntityTypes())
 {
-  "ConnectionStrings": {
-    "DefaultConnection": "Server=tcp:turno-smart-sql-server.database.windows.net,1433;Initial Catalog=turno-smart-db;Persist Security Info=False;User ID=tu_usuario;Password=tu_password;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
-  }
+    foreach (var property in entityType.GetProperties())
+    {
+        if (property.ClrType == typeof(DateTime) || property.ClrType == typeof(DateTime?))
+        {
+            property.SetValueConverter(new ValueConverter<DateTime, DateTime>(
+                v => v.Kind == DateTimeKind.Utc ? v : DateTime.SpecifyKind(v, DateTimeKind.Utc),
+                v => DateTime.SpecifyKind(v, DateTimeKind.Utc)));
+        }
+    }
 }
 ```
 
-### 2. Railway (Alternativa Gratuita)
+### 2. Problemas de Fechas UTC
+**Cambios realizados**:
+- `DateTime.Now` → `DateTime.UtcNow`
+- `DateTime.Today` → `DateTime.UtcNow.Date`
+- Converter automático en DbContext
 
-1. **Conectar GitHub a Railway**
-2. **Configurar variables de entorno:**
-   - `ASPNETCORE_ENVIRONMENT=Production`
-   - `DATABASE_URL=postgresql://...` (Railway provee PostgreSQL gratis)
+### 3. Relaciones DNI-based
+**Configuración correcta**:
+```csharp
+// Relación Usuario -> Paciente por DNI
+modelBuilder.Entity<Paciente>()
+    .HasOne(p => p.Usuario)
+    .WithOne()
+    .HasForeignKey<Paciente>(p => p.DNI)
+    .HasPrincipalKey<Usuarios>(u => u.DNI)
+    .OnDelete(DeleteBehavior.Restrict);
+```
+```
 
-### 3. Render (Otra alternativa)
-
-#### Configuración para Render
+### 4. Dockerfile Optimizado
 ```dockerfile
-# Dockerfile para Render
+# Dockerfile actual (funcional)
 FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
 WORKDIR /app
-EXPOSE 10000
+EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
@@ -60,7 +99,7 @@ WORKDIR "/src/."
 RUN dotnet build "turno-smart.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "turno-smart.csproj" -c Release -o /app/publish
+RUN dotnet publish "turno-smart.csproj" -c Release -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
@@ -68,101 +107,168 @@ COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "turno-smart.dll"]
 ```
 
-### 4. Heroku (Con contenedores)
+## 🔄 Proceso de Deploy Actual
 
-#### Archivos necesarios:
-```dockerfile
-# Dockerfile
-FROM mcr.microsoft.com/dotnet/aspnet:8.0
-WORKDIR /app
-COPY bin/Release/net8.0/publish/ .
-CMD ASPNETCORE_URLS=http://*:$PORT dotnet turno-smart.dll
-```
-
-```json
-// heroku.yml
-build:
-  docker:
-    web: Dockerfile
-```
-
-## 📊 Comparación de Plataformas
-
-| Plataforma | Costo | .NET Support | Database | Dificultad |
-|------------|-------|--------------|----------|------------|
-| Azure App Service | $$ | ✅ Excelente | Azure SQL | Fácil |
-| Railway | $ (Gratis inicial) | ✅ Bueno | PostgreSQL | Fácil |
-| Render | $ | ✅ Bueno | PostgreSQL | Medio |
-| Heroku | $$ | ✅ Bueno | PostgreSQL | Medio |
-| Netlify | ❌ | ❌ No compatible | ❌ | Imposible |
-
-## 🗄️ Migración de Base de Datos
-
-### Para PostgreSQL (Railway/Render)
-
-1. **Instalar paquete PostgreSQL**
+### 1. Desarrollo Local
 ```bash
-dotnet add package Npgsql.EntityFrameworkCore.PostgreSQL
+# Desarrollo con SQL Server LocalDB
+dotnet run
+# → http://localhost:5031
 ```
 
-2. **Actualizar Program.cs**
-```csharp
-// Cambiar de SQL Server a PostgreSQL
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseNpgsql(connectionString));
-```
-
-3. **Nueva migration para PostgreSQL**
+### 2. Commit y Push
 ```bash
-dotnet ef migrations add InitialPostgreSQL -o Data/Migrations/PostgreSQL
-dotnet ef database update
+git add .
+git commit -m "Feature: Nueva funcionalidad"
+git push origin main
 ```
 
-### Para Azure SQL
+### 3. Deploy Automático
+```
+Railway detecta cambios → Build con Dockerfile → Deploy automático
+```
 
-1. **Mantener configuración actual de SQL Server**
-2. **Actualizar connection string en appsettings.Production.json**
-3. **Ejecutar migraciones en Azure**
+### 4. Resultado
+```
+🌐 https://turnosmart-production.up.railway.app
+📊 PostgreSQL en la nube
+🔒 SSL automático
+```
 
-## 🔧 Configuración de Producción
+## 🗄️ Base de Datos - Dual Environment
 
-### appsettings.Production.json
+### Desarrollo (Local)
 ```json
+// appsettings.Development.json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "${DATABASE_URL}" // Variable de entorno
-  },
-  "Logging": {
-    "LogLevel": {
-      "Default": "Warning"
-    }
-  },
-  "AllowedHosts": "*"
+    "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=aspnet-turno_smart;Trusted_Connection=true;MultipleActiveResultSets=true"
+  }
 }
 ```
 
-### Program.cs - Configuración de producción
+### Producción (Railway)
 ```csharp
-// Configurar para usar variables de entorno
-var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL") 
-    ?? builder.Configuration.GetConnectionString("DefaultConnection");
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString)); // o UseNpgsql para PostgreSQL
+// Program.cs - Detección automática
+var connectionString = Environment.GetEnvironmentVariable("DATABASE_URL");
+if (!string.IsNullOrEmpty(connectionString))
+{
+    // Railway PostgreSQL
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseNpgsql(connectionString));
+}
+else
+{
+    // Local SQL Server
+    connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+    builder.Services.AddDbContext<ApplicationDbContext>(options =>
+        options.UseSqlServer(connectionString));
+}
 ```
 
-## 📝 Pasos Siguientes
+## 🎯 Funcionalidades Desplegadas
 
-1. **Elegir plataforma de hosting**
-2. **Configurar base de datos en la nube**
-3. **Actualizar connection strings**
-4. **Configurar CI/CD desde GitHub**
-5. **Ejecutar migraciones en producción**
+### ✅ Sistema Completo Funcionando
+- **👤 Autenticación**: Registro y login de pacientes
+- **⚕️ Gestión de Médicos**: CRUD completo con especialidades
+- **📅 Sistema de Turnos**: Creación, edición, confirmación
+- **🏥 Especialidades**: Gestión de especialidades médicas
+- **📋 Historial Médico**: Registro de consultas
+- **� Roles**: Admin, Paciente, Médico, Recepcionista
 
-## 💡 Recomendación
+### ✅ Características Técnicas
+- **🔄 Migraciones automáticas** en Railway
+- **🔗 Relaciones DNI-based** Usuario↔Paciente
+- **🕐 Fechas UTC** compatibles con PostgreSQL
+- **📱 Responsive design** con Bootstrap
+- **🎨 Modales** para formularios
+- **⚡ AJAX** para mejor UX
 
-Para un proyecto .NET Core como TurnoSmart, recomiendo **Azure App Service** porque:
-- Soporte nativo para .NET
-- Integración perfecta con Azure SQL
-- Escalabilidad automática
-- Herramientas de monitoreo incluidas
+## 🛠️ Troubleshooting - Problemas Resueltos
+
+### Error 1: DateTime UTC vs Local
+```
+❌ Cannot write DateTime with Kind=Local to PostgreSQL type 'timestamp with time zone'
+✅ Solución: Converter automático + DateTime.UtcNow
+```
+
+### Error 2: NullReferenceException en Turnos
+```
+❌ currentUser.Paciente?.Id era null
+✅ Solución: Usar PacienteService.GetByDNI(user.DNI)
+```
+
+### Error 3: Foreign Key Constraints
+```
+❌ Migración con estructura incorrecta de DNI
+✅ Solución: Nueva migración PostgreSQL-compatible
+```
+
+### Error 4: Timestamp Comparison
+```
+❌ Cannot apply binary operation on 'timestamp with time zone' and 'timestamp without time zone'
+✅ Solución: DateTime.UtcNow.Date en lugar de DateTime.Today
+```
+
+## 📈 Monitoreo y Logs
+
+### Railway Dashboard
+- **📊 Metrics**: CPU, Memory, Requests
+- **📝 Logs**: Tiempo real
+- **🔄 Deployments**: Historial completo
+- **⚙️ Variables**: Environment settings
+
+### Logs Importantes
+```bash
+# Startup exitoso
+[INFO] Starting TurnoSmart
+[INFO] Database connection established
+[INFO] Migration applied: InitialPostgreSQLCompatible
+
+# Registro de paciente exitoso
+[INFO] Usuario de Identity creado exitosamente
+[INFO] Paciente guardado exitosamente en la base de datos
+```
+
+## 🚀 Cómo Deployar Cambios
+
+### 1. Desarrollo Local
+```bash
+# Probar localmente con SQL Server
+dotnet run
+# Verificar funcionalidad
+```
+
+### 2. Commit y Push
+```bash
+git add .
+git commit -m "feat: nueva funcionalidad"
+git push origin main
+```
+
+### 3. Verificar Deploy
+```
+Railway → Logs → Ver deployment
+```
+
+### 4. Probar en Producción
+```
+https://turnosmart-production.up.railway.app
+```
+
+## 📱 URLs y Accesos
+
+- **🌐 Producción**: `https://turnosmart-production.up.railway.app`
+- **🏠 Local**: `http://localhost:5031`
+- **📊 Railway Dashboard**: `https://railway.app/project/[project-id]`
+- **📁 GitHub**: `https://github.com/Camilo-Silva/TurnoSmart`
+
+## 🎉 Estado Actual: ✅ FUNCIONANDO 100%
+
+La aplicación **TurnoSmart** está completamente operativa en Railway con todas las funcionalidades:
+- ✅ Registro y autenticación
+- ✅ Gestión de turnos
+- ✅ CRUD de médicos y especialidades
+- ✅ Sistema de roles
+- ✅ Base de datos PostgreSQL
+- ✅ Deploy automático desde GitHub
