@@ -77,10 +77,10 @@ namespace turno_smart.Services
 
             if (medico == null)
             {
-                throw new Exception("M�dico no encontrado.");
+                throw new Exception("Médico no encontrado.");
             }
 
-            // Obtener los turnos existentes del m�dico en el rango de d�as solicitado
+            // Obtener los turnos existentes del médico en el rango de días solicitado
             var turnos = await _DBContext.Turnos
                 .Where(t => t.IdMedico == medicoId && t.FechaTurno >= DateTime.UtcNow.Date && t.FechaTurno <= DateTime.UtcNow.Date.AddDays(maxDays))
                 .ToListAsync();

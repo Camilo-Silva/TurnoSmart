@@ -14572,3 +14572,897 @@ WHERE [m].[DNI] = @__8__locals1_user_DNI_0
 2025-08-03 23:06:33.519 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.HomeController.Index (turno-smart)'
 2025-08-03 23:06:33.520 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/ - 200 null text/html; charset=utf-8 26.501ms
 2025-08-03 23:07:37.275 -03:00 [INF] Application is shutting down...
+2025-08-03 23:39:57.490 -03:00 [INF] Starting up
+2025-08-03 23:39:57.584 -03:00 [INF] dbHost: , dbName: , dbPassword: 
+2025-08-03 23:39:57.585 -03:00 [INF] Environment: Development
+2025-08-03 23:39:57.585 -03:00 [INF] DATABASE_URL variable: NULL
+2025-08-03 23:39:57.586 -03:00 [INF] Using local development configuration
+2025-08-03 23:39:57.587 -03:00 [INF] connectionString: Server=(localdb)\mssqllocaldb;Database=aspnet-turno_smart-382f0976-3bd1-415e-a9cb-d85b894228fd;Trusted_Connection=True;MultipleActiveResultSets=true
+2025-08-03 23:39:57.587 -03:00 [INF] Environment: Development
+2025-08-03 23:39:57.588 -03:00 [INF] Database URL exists: False
+2025-08-03 23:39:57.588 -03:00 [INF] Configuring SQL Server database context
+2025-08-03 23:40:00.203 -03:00 [INF] Executed DbCommand (11ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:00.258 -03:00 [INF] Executed DbCommand (44ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:00.261 -03:00 [INF] Iniciando configuración de base de datos...
+2025-08-03 23:40:00.263 -03:00 [INF] Connection String: Server=(localdb)\mssqllocaldb;Database=aspnet-turn...
+2025-08-03 23:40:00.277 -03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:00.281 -03:00 [INF] ¿Puede conectarse a la base de datos? true
+2025-08-03 23:40:00.408 -03:00 [INF] Executed DbCommand (7ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT CASE
+    WHEN EXISTS (
+        SELECT 1
+        FROM [AspNetUsers] AS [a]) THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END
+2025-08-03 23:40:00.418 -03:00 [INF] Las tablas principales ya existen en la base de datos.
+2025-08-03 23:40:00.419 -03:00 [INF] Las tablas ya existen. Verificando migraciones...
+2025-08-03 23:40:00.419 -03:00 [INF] Entorno de desarrollo: manteniendo estructura existente de base de datos.
+2025-08-03 23:40:00.447 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [AspNetUsers] AS [a]
+2025-08-03 23:40:00.455 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT COUNT(*)
+FROM [Pacientes] AS [p]
+2025-08-03 23:40:00.457 -03:00 [INF] Tabla Usuarios tiene 52 registros
+2025-08-03 23:40:00.457 -03:00 [INF] Tabla Pacientes tiene 19 registros
+2025-08-03 23:40:00.458 -03:00 [INF] Configuración de base de datos completada exitosamente.
+2025-08-03 23:40:00.491 -03:00 [INF] User profile is available. Using 'C:\Users\camil\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-08-03 23:40:00.539 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:00.543 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:00.631 -03:00 [INF] Executed DbCommand (10ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-08-03 23:40:00.665 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-08-03 23:40:00.669 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-08-03 23:40:00.672 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-08-03 23:40:00.718 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:00.721 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:00.742 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DNI], [a].[Email], [a].[EmailConfirmed], [a].[IsAdmin], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2025-08-03 23:40:00.806 -03:00 [INF] Now listening on: http://localhost:5031
+2025-08-03 23:40:00.808 -03:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-08-03 23:40:00.809 -03:00 [INF] Hosting environment: Development
+2025-08-03 23:40:00.810 -03:00 [INF] Content root path: D:\9.Proyectos\TurnoSmart\turno-smart\turno-smart
+2025-08-03 23:40:02.523 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/ - null null
+2025-08-03 23:40:02.529 -03:00 [WRN] Failed to determine the https port for redirect.
+2025-08-03 23:40:02.552 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:02.555 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:02.576 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DNI], [a].[Email], [a].[EmailConfirmed], [a].[IsAdmin], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-08-03 23:40:02.614 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2025-08-03 23:40:02.635 -03:00 [INF] Executed DbCommand (3ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-08-03 23:40:02.639 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-08-03 23:40:02.650 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2025-08-03 23:40:02.656 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.HomeController.Index (turno-smart)'
+2025-08-03 23:40:02.666 -03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller turno_smart.Controllers.HomeController (turno-smart).
+2025-08-03 23:40:02.671 -03:00 [WRN] The query uses the 'First'/'FirstOrDefault' operator without 'OrderBy' and filter operators. This may lead to unpredictable results.
+2025-08-03 23:40:02.677 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Correo], [c].[Direccion], [c].[Lema], [c].[Nombre], [c].[Telefono]
+FROM [CentroMedico] AS [c]
+2025-08-03 23:40:02.711 -03:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+2025-08-03 23:40:02.750 -03:00 [INF] Executing ViewResult, running view Index.
+2025-08-03 23:40:02.810 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Apellido], [p].[Ciudad], [p].[Cobertura], [p].[DNI], [p].[Domicilio], [p].[Email], [p].[Estado], [p].[FechaAlta], [p].[FechaBaja], [p].[FechaNacimiento], [p].[Nombre], [p].[Provincia], [p].[Telefono]
+FROM [Pacientes] AS [p]
+WHERE [p].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:40:02.842 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+WHERE [m].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:40:02.865 -03:00 [INF] Executed ViewResult - view Index executed in 115.3405ms.
+2025-08-03 23:40:02.869 -03:00 [INF] Executed action turno_smart.Controllers.HomeController.Index (turno-smart) in 200.8739ms
+2025-08-03 23:40:02.870 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.HomeController.Index (turno-smart)'
+2025-08-03 23:40:02.886 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/ - 200 null text/html; charset=utf-8 363.0048ms
+2025-08-03 23:40:02.910 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/js/site.js?v=krM32RZq2vhTvdaf6-qW7yMKrRLSFDDsfI4veito-Sg - null null
+2025-08-03 23:40:02.922 -03:00 [INF] The file /js/site.js was not modified
+2025-08-03 23:40:02.925 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/js/site.js?v=krM32RZq2vhTvdaf6-qW7yMKrRLSFDDsfI4veito-Sg - 304 null text/javascript 15.7613ms
+2025-08-03 23:40:14.881 -03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5031/Account/Logout?returnUrl=%2F - application/x-www-form-urlencoded 225
+2025-08-03 23:40:14.887 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:14.892 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:14.895 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.AccountController.Logout (turno-smart)'
+2025-08-03 23:40:14.898 -03:00 [INF] Route matched with {action = "Logout", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Logout() on controller turno_smart.Controllers.AccountController (turno-smart).
+2025-08-03 23:40:14.904 -03:00 [INF] AuthenticationScheme: Identity.Application signed out.
+2025-08-03 23:40:14.905 -03:00 [INF] AuthenticationScheme: Identity.External signed out.
+2025-08-03 23:40:14.906 -03:00 [INF] AuthenticationScheme: Identity.TwoFactorUserId signed out.
+2025-08-03 23:40:14.907 -03:00 [INF] Executing RedirectResult, redirecting to /.
+2025-08-03 23:40:14.908 -03:00 [INF] Executed action turno_smart.Controllers.AccountController.Logout (turno-smart) in 8.5416ms
+2025-08-03 23:40:14.909 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.AccountController.Logout (turno-smart)'
+2025-08-03 23:40:14.910 -03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5031/Account/Logout?returnUrl=%2F - 302 0 null 28.7905ms
+2025-08-03 23:40:14.912 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/ - null null
+2025-08-03 23:40:14.914 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.HomeController.Index (turno-smart)'
+2025-08-03 23:40:14.915 -03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller turno_smart.Controllers.HomeController (turno-smart).
+2025-08-03 23:40:14.917 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:14.919 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:14.921 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Correo], [c].[Direccion], [c].[Lema], [c].[Nombre], [c].[Telefono]
+FROM [CentroMedico] AS [c]
+2025-08-03 23:40:14.924 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+2025-08-03 23:40:14.928 -03:00 [INF] Executing ViewResult, running view Index.
+2025-08-03 23:40:14.937 -03:00 [INF] Executed ViewResult - view Index executed in 8.4952ms.
+2025-08-03 23:40:14.938 -03:00 [INF] Executed action turno_smart.Controllers.HomeController.Index (turno-smart) in 21.7478ms
+2025-08-03 23:40:14.939 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.HomeController.Index (turno-smart)'
+2025-08-03 23:40:14.940 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/ - 200 null text/html; charset=utf-8 27.592ms
+2025-08-03 23:40:15.789 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Account/Login - null null
+2025-08-03 23:40:15.795 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.AccountController.Login (turno-smart)'
+2025-08-03 23:40:15.797 -03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Login() on controller turno_smart.Controllers.AccountController (turno-smart).
+2025-08-03 23:40:15.799 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:15.802 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:15.805 -03:00 [INF] Executing PartialViewResult, running view _LoginModal.
+2025-08-03 23:40:15.821 -03:00 [INF] Executed PartialViewResult - view _LoginModal executed in 16.1558ms.
+2025-08-03 23:40:15.822 -03:00 [INF] Executed action turno_smart.Controllers.AccountController.Login (turno-smart) in 23.7139ms
+2025-08-03 23:40:15.823 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.AccountController.Login (turno-smart)'
+2025-08-03 23:40:15.823 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Account/Login - 200 null text/html; charset=utf-8 34.3145ms
+2025-08-03 23:40:19.284 -03:00 [INF] Request starting HTTP/1.1 POST http://localhost:5031/Account/Login - application/x-www-form-urlencoded; charset=UTF-8 248
+2025-08-03 23:40:19.287 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.AccountController.Login (turno-smart)'
+2025-08-03 23:40:19.293 -03:00 [INF] Route matched with {action = "Login", controller = "Account"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(turno_smart.ViewModels.AccountVM.LoginVM) on controller turno_smart.Controllers.AccountController (turno-smart).
+2025-08-03 23:40:19.295 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:19.299 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:19.321 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[@__normalizedUserName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DNI], [a].[Email], [a].[EmailConfirmed], [a].[IsAdmin], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[NormalizedUserName] = @__normalizedUserName_0
+2025-08-03 23:40:19.390 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__user_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[Id], [a].[ClaimType], [a].[ClaimValue], [a].[UserId]
+FROM [AspNetUserClaims] AS [a]
+WHERE [a].[UserId] = @__user_Id_0
+2025-08-03 23:40:19.394 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__userId_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a0].[Name]
+FROM [AspNetUserRoles] AS [a]
+INNER JOIN [AspNetRoles] AS [a0] ON [a].[RoleId] = [a0].[Id]
+WHERE [a].[UserId] = @__userId_0
+2025-08-03 23:40:19.398 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2025-08-03 23:40:19.400 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__role_Id_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT [a].[ClaimType], [a].[ClaimValue]
+FROM [AspNetRoleClaims] AS [a]
+WHERE [a].[RoleId] = @__role_Id_0
+2025-08-03 23:40:19.402 -03:00 [INF] AuthenticationScheme: Identity.Application signed in.
+2025-08-03 23:40:19.404 -03:00 [INF] Executing JsonResult, writing value of type '<>f__AnonymousType0`1[[System.String, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-08-03 23:40:19.410 -03:00 [INF] Executed action turno_smart.Controllers.AccountController.Login (turno-smart) in 115.7487ms
+2025-08-03 23:40:19.411 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.AccountController.Login (turno-smart)'
+2025-08-03 23:40:19.412 -03:00 [INF] Request finished HTTP/1.1 POST http://localhost:5031/Account/Login - 200 null application/json; charset=utf-8 127.8318ms
+2025-08-03 23:40:19.417 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/ - null null
+2025-08-03 23:40:19.421 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:19.423 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:19.425 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.HomeController.Index (turno-smart)'
+2025-08-03 23:40:19.426 -03:00 [INF] Route matched with {action = "Index", controller = "Home"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller turno_smart.Controllers.HomeController (turno-smart).
+2025-08-03 23:40:19.427 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[Id], [c].[Correo], [c].[Direccion], [c].[Lema], [c].[Nombre], [c].[Telefono]
+FROM [CentroMedico] AS [c]
+2025-08-03 23:40:19.430 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+2025-08-03 23:40:19.432 -03:00 [INF] Executing ViewResult, running view Index.
+2025-08-03 23:40:19.437 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DNI], [a].[Email], [a].[EmailConfirmed], [a].[IsAdmin], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-08-03 23:40:19.439 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Apellido], [p].[Ciudad], [p].[Cobertura], [p].[DNI], [p].[Domicilio], [p].[Email], [p].[Estado], [p].[FechaAlta], [p].[FechaBaja], [p].[FechaNacimiento], [p].[Nombre], [p].[Provincia], [p].[Telefono]
+FROM [Pacientes] AS [p]
+WHERE [p].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:40:19.441 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+WHERE [m].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:40:19.445 -03:00 [INF] Executed ViewResult - view Index executed in 12.7083ms.
+2025-08-03 23:40:19.447 -03:00 [INF] Executed action turno_smart.Controllers.HomeController.Index (turno-smart) in 20.119ms
+2025-08-03 23:40:19.448 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.HomeController.Index (turno-smart)'
+2025-08-03 23:40:19.449 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/ - 200 null text/html; charset=utf-8 32.3778ms
+2025-08-03 23:40:20.920 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Especialidad - null null
+2025-08-03 23:40:20.923 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:20.926 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:20.928 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.EspecialidadController.Index (turno-smart)'
+2025-08-03 23:40:20.931 -03:00 [INF] Route matched with {action = "Index", controller = "Especialidad"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller turno_smart.Controllers.EspecialidadController (turno-smart).
+2025-08-03 23:40:20.938 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+2025-08-03 23:40:20.940 -03:00 [INF] Executing ViewResult, running view Index.
+2025-08-03 23:40:20.952 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DNI], [a].[Email], [a].[EmailConfirmed], [a].[IsAdmin], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-08-03 23:40:20.954 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Apellido], [p].[Ciudad], [p].[Cobertura], [p].[DNI], [p].[Domicilio], [p].[Email], [p].[Estado], [p].[FechaAlta], [p].[FechaBaja], [p].[FechaNacimiento], [p].[Nombre], [p].[Provincia], [p].[Telefono]
+FROM [Pacientes] AS [p]
+WHERE [p].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:40:20.956 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+WHERE [m].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:40:20.959 -03:00 [INF] Executed ViewResult - view Index executed in 19.2ms.
+2025-08-03 23:40:20.960 -03:00 [INF] Executed action turno_smart.Controllers.EspecialidadController.Index (turno-smart) in 27.6496ms
+2025-08-03 23:40:20.961 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.EspecialidadController.Index (turno-smart)'
+2025-08-03 23:40:20.962 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Especialidad - 200 null text/html; charset=utf-8 42.2205ms
+2025-08-03 23:40:27.279 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Especialidad/Details/38 - null null
+2025-08-03 23:40:27.283 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:27.285 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:27.288 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.EspecialidadController.Details (turno-smart)'
+2025-08-03 23:40:27.290 -03:00 [INF] Route matched with {action = "Details", controller = "Especialidad"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Details(Int32) on controller turno_smart.Controllers.EspecialidadController (turno-smart).
+2025-08-03 23:40:27.296 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__id_0
+2025-08-03 23:40:27.298 -03:00 [INF] Executing ViewResult, running view Details.
+2025-08-03 23:40:27.300 -03:00 [INF] Executed ViewResult - view Details executed in 2.1023ms.
+2025-08-03 23:40:27.301 -03:00 [INF] Executed action turno_smart.Controllers.EspecialidadController.Details (turno-smart) in 9.5176ms
+2025-08-03 23:40:27.301 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.EspecialidadController.Details (turno-smart)'
+2025-08-03 23:40:27.302 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Especialidad/Details/38 - 200 null text/html; charset=utf-8 22.9149ms
+2025-08-03 23:40:52.290 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Especialidad/Details/40 - null null
+2025-08-03 23:40:52.294 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:40:52.298 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:40:52.300 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.EspecialidadController.Details (turno-smart)'
+2025-08-03 23:40:52.301 -03:00 [INF] Route matched with {action = "Details", controller = "Especialidad"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Details(Int32) on controller turno_smart.Controllers.EspecialidadController (turno-smart).
+2025-08-03 23:40:52.303 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__id_0
+2025-08-03 23:40:52.304 -03:00 [INF] Executing ViewResult, running view Details.
+2025-08-03 23:40:52.305 -03:00 [INF] Executed ViewResult - view Details executed in 0.9084ms.
+2025-08-03 23:40:52.306 -03:00 [INF] Executed action turno_smart.Controllers.EspecialidadController.Details (turno-smart) in 4.4155ms
+2025-08-03 23:40:52.307 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.EspecialidadController.Details (turno-smart)'
+2025-08-03 23:40:52.307 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Especialidad/Details/40 - 200 null text/html; charset=utf-8 17.6079ms
+2025-08-03 23:41:11.483 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Especialidad/Details/36 - null null
+2025-08-03 23:41:11.489 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:41:11.491 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:41:11.494 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.EspecialidadController.Details (turno-smart)'
+2025-08-03 23:41:11.494 -03:00 [INF] Route matched with {action = "Details", controller = "Especialidad"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Details(Int32) on controller turno_smart.Controllers.EspecialidadController (turno-smart).
+2025-08-03 23:41:11.496 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__id_0
+2025-08-03 23:41:11.498 -03:00 [INF] Executing ViewResult, running view Details.
+2025-08-03 23:41:11.499 -03:00 [INF] Executed ViewResult - view Details executed in 1.2065ms.
+2025-08-03 23:41:11.500 -03:00 [INF] Executed action turno_smart.Controllers.EspecialidadController.Details (turno-smart) in 4.7126ms
+2025-08-03 23:41:11.501 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.EspecialidadController.Details (turno-smart)'
+2025-08-03 23:41:11.502 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Especialidad/Details/36 - 200 null text/html; charset=utf-8 18.5172ms
+2025-08-03 23:41:31.581 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Medico - null null
+2025-08-03 23:41:31.586 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:41:31.588 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:41:31.590 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.MedicoController.Index (turno-smart)'
+2025-08-03 23:41:31.593 -03:00 [INF] Route matched with {action = "Index", controller = "Medico"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32]) on controller turno_smart.Controllers.MedicoController (turno-smart).
+2025-08-03 23:41:31.601 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono]
+FROM [Medicos] AS [m]
+2025-08-03 23:41:31.616 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.619 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.622 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.624 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.626 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.628 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.630 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.632 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.635 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.637 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:41:31.639 -03:00 [INF] Executing ViewResult, running view Index.
+2025-08-03 23:41:31.647 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DNI], [a].[Email], [a].[EmailConfirmed], [a].[IsAdmin], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-08-03 23:41:31.649 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Apellido], [p].[Ciudad], [p].[Cobertura], [p].[DNI], [p].[Domicilio], [p].[Email], [p].[Estado], [p].[FechaAlta], [p].[FechaBaja], [p].[FechaNacimiento], [p].[Nombre], [p].[Provincia], [p].[Telefono]
+FROM [Pacientes] AS [p]
+WHERE [p].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:41:31.652 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+WHERE [m].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:41:31.655 -03:00 [INF] Executed ViewResult - view Index executed in 16.273ms.
+2025-08-03 23:41:31.656 -03:00 [INF] Executed action turno_smart.Controllers.MedicoController.Index (turno-smart) in 61.7841ms
+2025-08-03 23:41:31.657 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.MedicoController.Index (turno-smart)'
+2025-08-03 23:41:31.658 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Medico - 200 null text/html; charset=utf-8 76.4994ms
+2025-08-03 23:41:33.868 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Medico/Edit/8 - null null
+2025-08-03 23:41:33.873 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:41:33.876 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:41:33.878 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:41:33.879 -03:00 [INF] Route matched with {action = "Edit", controller = "Medico"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(Int32) on controller turno_smart.Controllers.MedicoController (turno-smart).
+2025-08-03 23:41:33.885 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono]
+FROM [Medicos] AS [m]
+WHERE [m].[Id] = @__id_0
+2025-08-03 23:41:33.890 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+2025-08-03 23:41:33.894 -03:00 [INF] Executing PartialViewResult, running view Edit.
+2025-08-03 23:41:33.917 -03:00 [INF] Executed PartialViewResult - view null executed in 24.2495ms.
+2025-08-03 23:41:33.919 -03:00 [INF] Executed action turno_smart.Controllers.MedicoController.Edit (turno-smart) in 38.4018ms
+2025-08-03 23:41:33.920 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:41:33.922 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Medico/Edit/8 - 200 null text/html; charset=utf-8 54.3422ms
+2025-08-03 23:43:15.897 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Medico/Edit/11 - null null
+2025-08-03 23:43:15.902 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:43:15.907 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:43:15.909 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:43:15.910 -03:00 [INF] Route matched with {action = "Edit", controller = "Medico"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(Int32) on controller turno_smart.Controllers.MedicoController (turno-smart).
+2025-08-03 23:43:15.913 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono]
+FROM [Medicos] AS [m]
+WHERE [m].[Id] = @__id_0
+2025-08-03 23:43:15.914 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+2025-08-03 23:43:15.916 -03:00 [INF] Executing PartialViewResult, running view Edit.
+2025-08-03 23:43:15.918 -03:00 [INF] Executed PartialViewResult - view null executed in 2.3652ms.
+2025-08-03 23:43:15.919 -03:00 [INF] Executed action turno_smart.Controllers.MedicoController.Edit (turno-smart) in 8.0333ms
+2025-08-03 23:43:15.921 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:43:15.922 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Medico/Edit/11 - 200 null text/html; charset=utf-8 24.5221ms
+2025-08-03 23:44:27.565 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Medico/Edit/14 - null null
+2025-08-03 23:44:27.569 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:44:27.571 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:44:27.575 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:44:27.576 -03:00 [INF] Route matched with {action = "Edit", controller = "Medico"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(Int32) on controller turno_smart.Controllers.MedicoController (turno-smart).
+2025-08-03 23:44:27.578 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono]
+FROM [Medicos] AS [m]
+WHERE [m].[Id] = @__id_0
+2025-08-03 23:44:27.579 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+2025-08-03 23:44:27.581 -03:00 [INF] Executing PartialViewResult, running view Edit.
+2025-08-03 23:44:27.583 -03:00 [INF] Executed PartialViewResult - view null executed in 1.7346ms.
+2025-08-03 23:44:27.584 -03:00 [INF] Executed action turno_smart.Controllers.MedicoController.Edit (turno-smart) in 6.8703ms
+2025-08-03 23:44:27.584 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:44:27.585 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Medico/Edit/14 - 200 null text/html; charset=utf-8 20.2679ms
+2025-08-03 23:46:05.442 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Medico/Edit/6 - null null
+2025-08-03 23:46:05.446 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:46:05.449 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:46:05.453 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:46:05.454 -03:00 [INF] Route matched with {action = "Edit", controller = "Medico"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(Int32) on controller turno_smart.Controllers.MedicoController (turno-smart).
+2025-08-03 23:46:05.456 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono]
+FROM [Medicos] AS [m]
+WHERE [m].[Id] = @__id_0
+2025-08-03 23:46:05.458 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+2025-08-03 23:46:05.459 -03:00 [INF] Executing PartialViewResult, running view Edit.
+2025-08-03 23:46:05.461 -03:00 [INF] Executed PartialViewResult - view null executed in 1.4846ms.
+2025-08-03 23:46:05.461 -03:00 [INF] Executed action turno_smart.Controllers.MedicoController.Edit (turno-smart) in 6.2381ms
+2025-08-03 23:46:05.462 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:46:05.463 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Medico/Edit/6 - 200 null text/html; charset=utf-8 21.1481ms
+2025-08-03 23:46:10.951 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Especialidad - null null
+2025-08-03 23:46:10.956 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:46:10.959 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:46:10.961 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.EspecialidadController.Index (turno-smart)'
+2025-08-03 23:46:10.961 -03:00 [INF] Route matched with {action = "Index", controller = "Especialidad"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller turno_smart.Controllers.EspecialidadController (turno-smart).
+2025-08-03 23:46:10.963 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+2025-08-03 23:46:10.965 -03:00 [INF] Executing ViewResult, running view Index.
+2025-08-03 23:46:10.967 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DNI], [a].[Email], [a].[EmailConfirmed], [a].[IsAdmin], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-08-03 23:46:10.969 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Apellido], [p].[Ciudad], [p].[Cobertura], [p].[DNI], [p].[Domicilio], [p].[Email], [p].[Estado], [p].[FechaAlta], [p].[FechaBaja], [p].[FechaNacimiento], [p].[Nombre], [p].[Provincia], [p].[Telefono]
+FROM [Pacientes] AS [p]
+WHERE [p].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:46:10.970 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+WHERE [m].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:46:10.972 -03:00 [INF] Executed ViewResult - view Index executed in 7.5126ms.
+2025-08-03 23:46:10.973 -03:00 [INF] Executed action turno_smart.Controllers.EspecialidadController.Index (turno-smart) in 10.522ms
+2025-08-03 23:46:10.974 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.EspecialidadController.Index (turno-smart)'
+2025-08-03 23:46:10.975 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Especialidad - 200 null text/html; charset=utf-8 24.0081ms
+2025-08-03 23:46:16.249 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Especialidad/Details/43 - null null
+2025-08-03 23:46:16.253 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:46:16.255 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:46:16.257 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.EspecialidadController.Details (turno-smart)'
+2025-08-03 23:46:16.257 -03:00 [INF] Route matched with {action = "Details", controller = "Especialidad"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Details(Int32) on controller turno_smart.Controllers.EspecialidadController (turno-smart).
+2025-08-03 23:46:16.259 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__id_0
+2025-08-03 23:46:16.261 -03:00 [INF] Executing ViewResult, running view Details.
+2025-08-03 23:46:16.261 -03:00 [INF] Executed ViewResult - view Details executed in 0.7228ms.
+2025-08-03 23:46:16.262 -03:00 [INF] Executed action turno_smart.Controllers.EspecialidadController.Details (turno-smart) in 3.712ms
+2025-08-03 23:46:16.263 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.EspecialidadController.Details (turno-smart)'
+2025-08-03 23:46:16.265 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Especialidad/Details/43 - 200 null text/html; charset=utf-8 15.6178ms
+2025-08-03 23:46:32.281 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Medico - null null
+2025-08-03 23:46:32.284 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:46:32.288 -03:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:46:32.290 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.MedicoController.Index (turno-smart)'
+2025-08-03 23:46:32.291 -03:00 [INF] Route matched with {action = "Index", controller = "Medico"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String, System.Nullable`1[System.Int32]) on controller turno_smart.Controllers.MedicoController (turno-smart).
+2025-08-03 23:46:32.293 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono]
+FROM [Medicos] AS [m]
+2025-08-03 23:46:32.295 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.298 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.301 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.302 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.304 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.307 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.308 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.310 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.313 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.316 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+WHERE [e].[Id] = @__p_0
+2025-08-03 23:46:32.319 -03:00 [INF] Executing ViewResult, running view Index.
+2025-08-03 23:46:32.321 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__p_0='?' (Size = 450)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[DNI], [a].[Email], [a].[EmailConfirmed], [a].[IsAdmin], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName]
+FROM [AspNetUsers] AS [a]
+WHERE [a].[Id] = @__p_0
+2025-08-03 23:46:32.323 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [p].[Id], [p].[Apellido], [p].[Ciudad], [p].[Cobertura], [p].[DNI], [p].[Domicilio], [p].[Email], [p].[Estado], [p].[FechaAlta], [p].[FechaBaja], [p].[FechaNacimiento], [p].[Nombre], [p].[Provincia], [p].[Telefono]
+FROM [Pacientes] AS [p]
+WHERE [p].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:46:32.324 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__8__locals1_user_DNI_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono], [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Medicos] AS [m]
+INNER JOIN [Especialidades] AS [e] ON [m].[IdEspecialidad] = [e].[Id]
+WHERE [m].[DNI] = @__8__locals1_user_DNI_0
+2025-08-03 23:46:32.326 -03:00 [INF] Executed ViewResult - view Index executed in 7.7987ms.
+2025-08-03 23:46:32.327 -03:00 [INF] Executed action turno_smart.Controllers.MedicoController.Index (turno-smart) in 35.2428ms
+2025-08-03 23:46:32.329 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.MedicoController.Index (turno-smart)'
+2025-08-03 23:46:32.330 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Medico - 200 null text/html; charset=utf-8 48.3816ms
+2025-08-03 23:46:36.608 -03:00 [INF] Request starting HTTP/1.1 GET http://localhost:5031/Medico/Edit/6 - null null
+2025-08-03 23:46:36.610 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT 1
+2025-08-03 23:46:36.613 -03:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+
+IF EXISTS
+    (SELECT *
+     FROM [sys].[objects] o
+     WHERE [o].[type] = 'U'
+     AND [o].[is_ms_shipped] = 0
+     AND NOT EXISTS (SELECT *
+         FROM [sys].[extended_properties] AS [ep]
+         WHERE [ep].[major_id] = [o].[object_id]
+             AND [ep].[minor_id] = 0
+             AND [ep].[class] = 1
+             AND [ep].[name] = N'microsoft_database_tools_support'
+    )
+)
+SELECT 1 ELSE SELECT 0
+2025-08-03 23:46:36.614 -03:00 [INF] Executing endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:46:36.615 -03:00 [INF] Route matched with {action = "Edit", controller = "Medico"}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Edit(Int32) on controller turno_smart.Controllers.MedicoController (turno-smart).
+2025-08-03 23:46:36.618 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[@__id_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [m].[Id], [m].[Apellido], [m].[DNI], [m].[Email], [m].[IdEspecialidad], [m].[Imagen], [m].[Matricula], [m].[Nombre], [m].[Reseña], [m].[Telefono]
+FROM [Medicos] AS [m]
+WHERE [m].[Id] = @__id_0
+2025-08-03 23:46:36.621 -03:00 [INF] Executed DbCommand (0ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [e].[Id], [e].[Descripcion], [e].[Nombre]
+FROM [Especialidades] AS [e]
+2025-08-03 23:46:36.623 -03:00 [INF] Executing PartialViewResult, running view Edit.
+2025-08-03 23:46:36.625 -03:00 [INF] Executed PartialViewResult - view null executed in 1.2869ms.
+2025-08-03 23:46:36.625 -03:00 [INF] Executed action turno_smart.Controllers.MedicoController.Edit (turno-smart) in 8.0395ms
+2025-08-03 23:46:36.626 -03:00 [INF] Executed endpoint 'turno_smart.Controllers.MedicoController.Edit (turno-smart)'
+2025-08-03 23:46:36.627 -03:00 [INF] Request finished HTTP/1.1 GET http://localhost:5031/Medico/Edit/6 - 200 null text/html; charset=utf-8 19.0324ms
+2025-08-03 23:48:00.345 -03:00 [INF] Application is shutting down...
