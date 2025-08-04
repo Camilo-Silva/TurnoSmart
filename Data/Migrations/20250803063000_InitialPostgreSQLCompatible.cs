@@ -205,17 +205,19 @@ namespace turno_smart.Data.Migrations
                     Telefono = table.Column<int>(type: "integer", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
                     Estado = table.Column<int>(type: "integer", nullable: false),
-                    UsuarioId = table.Column<string>(type: "text", nullable: false)
+                    FechaAlta = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    FechaBaja = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    Cobertura = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Pacientes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Pacientes_AspNetUsers_UsuarioId",
-                        column: x => x.UsuarioId,
+                        name: "FK_Pacientes_AspNetUsers_DNI",
+                        column: x => x.DNI,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DNI",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -228,18 +230,17 @@ namespace turno_smart.Data.Migrations
                     Apellido = table.Column<string>(type: "text", nullable: false),
                     DNI = table.Column<int>(type: "integer", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    Telefono = table.Column<int>(type: "integer", nullable: false),
-                    UsuarioId = table.Column<string>(type: "text", nullable: false)
+                    Telefono = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recepcionistas", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Recepcionistas_AspNetUsers_UsuarioId",
-                        column: x => x.UsuarioId,
+                        name: "FK_Recepcionistas_AspNetUsers_DNI",
+                        column: x => x.DNI,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DNI",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -253,25 +254,26 @@ namespace turno_smart.Data.Migrations
                     DNI = table.Column<int>(type: "integer", nullable: false),
                     Telefono = table.Column<int>(type: "integer", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: false),
-                    Matricula = table.Column<string>(type: "text", nullable: false),
-                    EspecialidadId = table.Column<int>(type: "integer", nullable: false),
-                    UsuarioId = table.Column<string>(type: "text", nullable: false)
+                    Matricula = table.Column<int>(type: "integer", nullable: false),
+                    IdEspecialidad = table.Column<int>(type: "integer", nullable: false),
+                    Imagen = table.Column<string>(type: "text", nullable: true),
+                    Reseña = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Medicos", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Medicos_AspNetUsers_UsuarioId",
-                        column: x => x.UsuarioId,
+                        name: "FK_Medicos_AspNetUsers_DNI",
+                        column: x => x.DNI,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "DNI",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Medicos_Especialidades_EspecialidadId",
-                        column: x => x.EspecialidadId,
+                        name: "FK_Medicos_Especialidades_IdEspecialidad",
+                        column: x => x.IdEspecialidad,
                         principalTable: "Especialidades",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -408,6 +410,12 @@ namespace turno_smart.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_DNI",
+                table: "AspNetUsers",
+                column: "DNI",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Estudios_HistorialMedicoId",
                 table: "Estudios",
                 column: "HistorialMedicoId");
@@ -428,24 +436,24 @@ namespace turno_smart.Data.Migrations
                 column: "PacienteId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medicos_EspecialidadId",
+                name: "IX_Medicos_IdEspecialidad",
                 table: "Medicos",
-                column: "EspecialidadId");
+                column: "IdEspecialidad");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medicos_UsuarioId",
+                name: "IX_Medicos_DNI",
                 table: "Medicos",
-                column: "UsuarioId");
+                column: "DNI");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Pacientes_UsuarioId",
+                name: "IX_Pacientes_DNI",
                 table: "Pacientes",
-                column: "UsuarioId");
+                column: "DNI");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Recepcionistas_UsuarioId",
+                name: "IX_Recepcionistas_DNI",
                 table: "Recepcionistas",
-                column: "UsuarioId");
+                column: "DNI");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Turnos_MedicoId",
