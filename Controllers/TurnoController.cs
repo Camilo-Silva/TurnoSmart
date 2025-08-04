@@ -10,11 +10,13 @@ namespace turno_smart.Controllers
     public class TurnoController(
         ITurnoService turnoService,
         IMedicoService medicoService,
+        IPacienteService pacienteService,
         UserManager<Usuarios> userManager
     ) : Controller {
 
         private readonly ITurnoService _turnoService = turnoService;
         private readonly IMedicoService _medicoService = medicoService;
+        private readonly IPacienteService _pacienteService = pacienteService;
         private readonly UserManager<Usuarios> _userManager = userManager;
 
         [HttpGet]
@@ -39,7 +41,9 @@ namespace turno_smart.Controllers
             var turnos = new List<Turno>();
             if (await _userManager.IsInRoleAsync(currentUser, "Paciente"))
             {
-                turnos = await _turnoService.GetAll(filter, currentUser.Paciente?.Id, null);
+                // Obtener paciente por DNI para evitar problemas de relación
+                var paciente = _pacienteService.GetByDNI(currentUser.DNI);
+                turnos = await _turnoService.GetAll(filter, paciente?.Id, null);
             }
             else if (await _userManager.IsInRoleAsync(currentUser, "Medico"))
             {
@@ -111,10 +115,32 @@ namespace turno_smart.Controllers
             {
                 return NotFound();
             }
+
+            // Para usuarios Paciente, necesitamos obtener el ID del paciente
+            int? pacienteId = null;
+            if (await _userManager.IsInRoleAsync(currentUser, "Paciente"))
+            {
+                // Buscar el paciente por DNI del usuario
+                var paciente = _pacienteService.GetByDNI(currentUser.DNI);
+                if (paciente == null)
+                {
+                    TempData["ErrorMessage"] = "No se encontró información de paciente. Contacte al administrador.";
+                    return RedirectToAction("Index", "Home");
+                }
+                pacienteId = paciente.Id;
+            }
+            else
+            {
+                // Para Admin o Recepcionista, necesitarían seleccionar un paciente
+                // Por ahora redirigimos a una página donde puedan seleccionar
+                TempData["ErrorMessage"] = "Funcionalidad en desarrollo para administradores.";
+                return RedirectToAction("Index", "Paciente");
+            }
+
             var availableSlots = await _medicoService.GetAvailableSlotsAsync(medico.Id, 60, new TimeSpan(8, 0, 0), new TimeSpan(18, 0, 0), new TimeSpan(0, 30, 0));
             var vm = new CreateTurnoVM
             {
-                PacienteId = currentUser.Paciente.Id,
+                PacienteId = pacienteId.Value,
                 MedicoId = medico.Id,
                 MedicoNombre = $"{medico.Nombre} {medico.Apellido}",
                 MedicoEspecialidad = medico.Especialidad.Nombre,
