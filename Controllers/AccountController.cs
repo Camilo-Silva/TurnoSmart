@@ -142,10 +142,32 @@ namespace turno_smart.Controllers
                         }
                         
                         _logger.LogInformation("Guardando paciente en base de datos");
-                        _pacienteService.Create(paciente);
+                        try 
+                        {
+                            _pacienteService.Create(paciente);
+                            _logger.LogInformation("Paciente guardado exitosamente en la base de datos");
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "ERROR: No se pudo guardar el paciente en la base de datos");
+                            _logger.LogError("Detalles del error: {Message}", ex.Message);
+                            if (ex.InnerException != null)
+                            {
+                                _logger.LogError("Error interno: {InnerMessage}", ex.InnerException.Message);
+                            }
+                            throw; // Re-lanzar la excepción para que se vea el error
+                        }
                         
                         // Actualizar el usuario con la relación establecida
-                        await _userManager.UpdateAsync(users);
+                        try 
+                        {
+                            await _userManager.UpdateAsync(users);
+                            _logger.LogInformation("Usuario actualizado exitosamente");
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError(ex, "ERROR: No se pudo actualizar el usuario");
+                        }
                         
                         _logger.LogInformation("Registro de paciente completado exitosamente para email: {Email}", model.Email);
                         return PartialView("_RegistrationSuccess", model);
