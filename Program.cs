@@ -156,8 +156,8 @@ namespace turno_smart
 
                             if (tablesExist)
                             {
-                                // Si las tablas existen, NO aplicar migraciones para evitar conflictos
-                                Log.Information("Las tablas ya existen. Verificando compatibilidad...");
+                                // Si las tablas existen, verificar y aplicar migraciones pendientes
+                                Log.Information("Las tablas ya existen. Verificando migraciones...");
                                 
                                 // Para desarrollo local, simplemente continúa sin tocar las migraciones
                                 if (builder.Environment.IsDevelopment())
@@ -166,28 +166,49 @@ namespace turno_smart
                                 }
                                 else
                                 {
-                                    // Solo para producción (PostgreSQL), verificar migraciones
-                                    var appliedMigrations = await context.Database.GetAppliedMigrationsAsync();
-                                    Log.Information("Migraciones aplicadas: {Count}", appliedMigrations.Count());
+                                    // Para producción (PostgreSQL), FORZAR aplicación de migración corregida
+                                    Log.Information("Entorno de producción PostgreSQL: verificando migración corregida...");
                                     
-                                    if (!appliedMigrations.Any())
+                                    var appliedMigrations = await context.Database.GetAppliedMigrationsAsync();
+                                    Log.Information("Migraciones aplicadas: {Migrations}", string.Join(", ", appliedMigrations));
+                                    
+                                    // Verificar si la migración corregida ya fue aplicada
+                                    bool hasCorrectMigration = appliedMigrations.Contains("20250803063000_InitialPostgreSQLCompatible");
+                                    
+                                    if (!hasCorrectMigration)
                                     {
-                                        // Marcar la migración como aplicada para PostgreSQL
-                                        Log.Information("Sincronizando historial de migraciones PostgreSQL...");
-                                        await context.Database.ExecuteSqlRawAsync(
-                                            "INSERT INTO \"__EFMigrationsHistory\" (\"MigrationId\", \"ProductVersion\") VALUES ({0}, {1})",
-                                            "20250803063000_InitialPostgreSQLCompatible", "8.0.8");
-                                        Log.Information("Historial sincronizado para PostgreSQL.");
+                                        Log.Information("FORZANDO aplicación de migración corregida PostgreSQL...");
+                                        
+                                        // Limpiar historial de migraciones incorrectas
+                                        try 
+                                        {
+                                            await context.Database.ExecuteSqlRawAsync("DELETE FROM \"__EFMigrationsHistory\"");
+                                            Log.Information("Historial de migraciones limpiado.");
+                                        }
+                                        catch (Exception cleanEx)
+                                        {
+                                            Log.Warning(cleanEx, "No se pudo limpiar historial de migraciones, continuando...");
+                                        }
+                                        
+                                        // Aplicar la migración corregida
+                                        using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(10));
+                                        await context.Database.MigrateAsync(cts.Token);
+                                        Log.Information("Migración corregida aplicada EXITOSAMENTE.");
                                     }
                                     else
                                     {
+                                        // Aplicar cualquier migración pendiente
                                         var pendingMigrations = await context.Database.GetPendingMigrationsAsync();
                                         if (pendingMigrations.Any())
                                         {
-                                            Log.Information("Aplicando migraciones pendientes en PostgreSQL...");
+                                            Log.Information("Aplicando migraciones pendientes: {Pending}", string.Join(", ", pendingMigrations));
                                             using var cts = new CancellationTokenSource(TimeSpan.FromMinutes(5));
                                             await context.Database.MigrateAsync(cts.Token);
-                                            Log.Information("Migraciones aplicadas exitosamente.");
+                                            Log.Information("Migraciones pendientes aplicadas exitosamente.");
+                                        }
+                                        else
+                                        {
+                                            Log.Information("Base de datos PostgreSQL ya tiene la migración corregida aplicada.");
                                         }
                                     }
                                 }
